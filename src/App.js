@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 
 function App(){
   return(
-      <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
             <Typography 
@@ -21,13 +21,13 @@ function App(){
             </Typography>
               <Button 
               color="inherit" 
-              sx={{fontWeight: 'light'}}>Profile</Button>
+              sx={{fontWeight: 'bold'}}>Profile</Button>
               <Button 
               color="inherit"
-              sx={{fontWeight: 'light'}}>Archieve</Button>
+              sx={{fontWeight: 'bold'}}>Archieve</Button>
               <Button
               color="inherit"
-              sx={{fontWeight: 'light'}}>Settings</Button>
+              sx={{fontWeight: 'bold'}}>Settings</Button>
           </Toolbar>
         </AppBar>
       </Box>
