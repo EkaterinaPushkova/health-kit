@@ -13,26 +13,24 @@ const connection = mysql.createConnection({
 app.get( "/authentification" , (req, res) => {
 
 
-    var data1 = {
-        ok: false
-      };
   
       // Adds header
       res.setHeader('Access-Control-Allow-Origin', '*');
   
       
     connection.query(
+
         'SELECT * from users where login = "'+req.query.login+'" and password = "'+req.query.password+'";',
         function(err, results, fields) {
            if(results.length>0){
               console.log("USer присутсвует");
-              data1.ok = true;
+              res.status(200).json({ok: true});
            }else{
-                
+            res.status(200).json({ok: false});
            }
         }
       );
-      res.status(200).json(data1);
+      
     
 });
 

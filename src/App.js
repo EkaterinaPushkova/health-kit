@@ -1,4 +1,5 @@
 import React from 'react';
+// import {useState} from 'react';
 import Register from './pages/Registration/registration';
 import AppBarHead from './components/AppBarHead';
 import Auth from './pages/Auth/authorization';
@@ -6,6 +7,7 @@ import {BrowserRouter,  Route, Routes} from 'react-router-dom';
 // 
 function App() {
 
+  // const [IsLoggedIn, setIsLoggedIn] = useState(false);
 
 
 
@@ -18,7 +20,7 @@ function App() {
     
       <Routes>
       <Route exact path='/' element={<Auth/>}/>
-      <Route  path='/registration' element={<Register/>}/>
+      <Route  path='/registration' element={<Register/>} />
       </Routes>
       </BrowserRouter>
       

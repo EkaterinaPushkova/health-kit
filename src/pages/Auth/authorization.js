@@ -1,21 +1,43 @@
 // import React from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import { Button, Paper, TextField, Typography } from '@mui/material';
 import { Container, Grid } from '@mui/material';
-import { Link} from 'react-router-dom';
-// import Register from '../../pages/Registration/registration';
+import { Link, useNavigate} from 'react-router-dom';
+//  import Register from '../../pages/Registration/registration';
 import axios from 'axios';
 //   Route, BrowserRouter, , Routes
-let login = "";
-let password = "";
+
+
+
+// const handleLogIn = (e) => {    Routing to Profile (maybe) v5
+//   e.preventDefault()
+//   setIsLoggedIn = true;
+//   history.push('/');
+// }
 
 function Auth() {
-  function getDataForLogin(val){
-      login = val.target.value;
+
+  
+  // let navigate = useNavigate();
+  // const handleLogIn = (e) => {
+    
+  //   e.preventDefault()
+  //   state.setIsLoggedIn = true;
+  //   state.navigate("/registration");
+  // };
+
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
+
+
+  const handleLoginChange = (e) => {
+    setLogin(e.target.value)
   }
-  function getDataForPassword(val){
-    password = val.target.value;
-}
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value)
+  }
+
   return (
     <Container maxWidth="sm">
       <Paper elevation={7} sx={{mt: 3}}>
@@ -37,7 +59,7 @@ function Auth() {
               id="outlined-required"
               label="Login"
               placeholder="Hello World"
-              onChange={getDataForLogin}
+              onChange={handleLoginChange}
             />
           </Grid>
           <Grid item>
@@ -46,7 +68,7 @@ function Auth() {
               label="Password"
               type="password"
               autoComplete="current-password"
-              onChange={getDataForPassword}
+              onChange={handlePasswordChange}
             />
           </Grid>
             </Box>
@@ -63,21 +85,22 @@ function Auth() {
                 <Button 
                   type="submit" 
                   variant='contained'
-                  onClick={() => {
+                  onClick={(handleLogin) => {
                     axios
                       .get(`//localhost:8080/authentification`, {
                         params:{
                           login: login,
                           password: password
                         }
+                      })
+                      .then((response) => {
+                        if (response.data.ok === true){
+                          alert('good')
+              
+                        }else if(response.data.ok === false){
+                          alert("bad");
+                        }
                       });
-                      // .then((response) => {
-                      //   if (response.data.ok === true){
-                      //     alert("good");
-                      //   }else{
-                      //     alert("bad");
-                      //   }
-                      // });
                   }}>Login
                 </Button>
               </Grid>
