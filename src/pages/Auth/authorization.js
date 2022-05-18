@@ -6,7 +6,7 @@ import { Container, Grid } from '@mui/material';
 import { Link, useNavigate} from 'react-router-dom';
 //  import Register from '../../pages/Registration/registration';
 import axios from 'axios';
-//   Route, BrowserRouter, , Routes
+//   Route, BrowserRouter, useNavigate , Routes
 
 
 
@@ -18,7 +18,8 @@ import axios from 'axios';
 
 function Auth() {
 
-  
+  const navigate = useNavigate();
+ 
   // let navigate = useNavigate();
   // const handleLogIn = (e) => {
     
@@ -37,7 +38,7 @@ function Auth() {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value)
   }
-
+  
   return (
     <Container maxWidth="sm">
       <Paper elevation={7} sx={{mt: 3}}>
@@ -82,10 +83,12 @@ function Auth() {
           }}>
             <Grid container spacing={3} justifyContent="center">
               <Grid item>
-                <Button 
+              
+             
+              <Button 
                   type="submit" 
                   variant='contained'
-                  onClick={(handleLogin) => {
+                  onClick={() => {
                     axios
                       .get(`//localhost:8080/authentification`, {
                         params:{
@@ -95,14 +98,19 @@ function Auth() {
                       })
                       .then((response) => {
                         if (response.data.ok === true){
-                          alert('good')
+                          navigate('/registration');
               
                         }else if(response.data.ok === false){
                           alert("bad");
                         }
+                      })
+                      .catch(error => {
+                        alert(error)
                       });
                   }}>Login
                 </Button>
+              
+                
               </Grid>
               <Grid item>
 

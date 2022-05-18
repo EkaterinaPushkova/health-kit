@@ -1,25 +1,28 @@
 import { Container, Grid, Paper, Typography, TextField, Box, Button } from "@mui/material";
 import axios from 'axios';
 import { Link} from 'react-router-dom'
-// import { Route, Routes} from 'react-router-dom';
+import { useState} from 'react';
 
-let login = '';
-let password = '';
-let name = '';
-let surname = '';
+
 
 function Register() {
-  function getDataForLogin(val){
-    login = val.target.value;
+
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
+
+  const handleLoginChange = (e) => {
+    setLogin(e.target.value)
   }
-  function getDataForPassword(val){
-    password = val.target.value;
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value)
   }
-  function getDataForName(val){
-    name = val.target.value;
+  const handleNameChange = (e) => {
+    setName(e.target.value)
   }
-  function getDataForSurname(val){
-    surname = val.target.value;
+  const handleSurnameChange = (e) => {
+    setSurname(e.target.value)
   }
     return(
     <Container maxWidth="sm">
@@ -41,7 +44,7 @@ function Register() {
               id="outlined-helperText"
               label="Your name"
               placeholder="Your name"
-              onChange={getDataForName}
+              onChange={handleNameChange}
               
             /> 
           </Grid>
@@ -50,7 +53,7 @@ function Register() {
               id="outlined"
               label="Your surname"
               placeholder="Your surname"
-              onChange={getDataForSurname}
+              onChange={handleSurnameChange}
               
             /> 
           </Grid>
@@ -60,7 +63,7 @@ function Register() {
               id="outlined-required"
               label="Login"
               placeholder="login@mail.com"
-              onChange={getDataForLogin}
+              onChange={handleLoginChange}
             />
           </Grid>
           <Grid item>
@@ -69,7 +72,7 @@ function Register() {
               label="Password"
               type="password"
               autoComplete="current-password"
-              onChange={getDataForPassword}
+              onChange={handlePasswordChange}
             />
           </Grid>
           </Box>
