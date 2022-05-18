@@ -45,7 +45,7 @@ app.get("/registration", (req, res) => {
   
       
     connection.query(
-        'INSERT INTO users VALUES(null,"'+req.query.name+'", "'+req.query.surname+'", "2002.07.22", 0, 0, "null", "'+req.query.login+'", "'+req.query.password+'");',
+        'INSERT INTO users VALUES(null,"'+req.query.name+'", "'+req.query.surname+'", "'+req.query.birthday+'", "'+req.query.height+'", "'+req.query.weight+'", "'+req.query.badhabits+'", "'+req.query.login+'", "'+req.query.password+'");',
      
       );
       res.status(200).json(data1);
