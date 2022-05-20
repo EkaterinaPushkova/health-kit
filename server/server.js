@@ -9,12 +9,10 @@ const connection = mysql.createConnection({
   password : '1234',
   database: 'diplom'
 });
-//  
+
 app.get( "/authentification" , (req, res) => {
 
 
-  
-      // Adds header
       res.setHeader('Access-Control-Allow-Origin', '*');
   
       
@@ -36,11 +34,7 @@ app.get( "/authentification" , (req, res) => {
 
 app.get("/registration", (req, res) => {
 
-    var data1 = {
-        ok: true
-      };
-  
-      // Adds header
+   
       res.setHeader('Access-Control-Allow-Origin', '*');
   
       
@@ -48,7 +42,7 @@ app.get("/registration", (req, res) => {
         'INSERT INTO users VALUES(null,"'+req.query.name+'", "'+req.query.surname+'", "'+req.query.birthday+'", "'+req.query.height+'", "'+req.query.weight+'", "'+req.query.badhabits+'", "'+req.query.login+'", "'+req.query.password+'");',
      
       );
-      res.status(200).json(data1);
+      res.status(200);
     
 })
 

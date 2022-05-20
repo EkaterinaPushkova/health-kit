@@ -1,9 +1,7 @@
-import { Container, Grid, Paper, Typography, TextField, Box, Button, Select, MenuItem, FormControl } from "@mui/material";
+import { Container, Grid, Paper, Typography, TextField, Box, Button, InputAdornment } from "@mui/material";
 import axios from 'axios';
 import { Link} from 'react-router-dom'
 import { useState} from 'react';
-import { DatePicker, InputNumber, Space } from 'antd';
-
 
 
 function Register() {
@@ -30,7 +28,7 @@ function Register() {
     setSurname(e.target.value)
   }
   const handleBirthdayChange = (e) => {
-    setBirthday(e.target.value)
+    setBirthday(e.target.value);
   }
   const handleWeightChange = (e) => {
     setWeight(e.target.value)
@@ -49,7 +47,7 @@ function Register() {
         
         <Typography variant="h5" align="center" color="textPrimary" fontWeight="600">Sign Up</Typography>
         
-        <Grid container justifyContent="center" direction='row'>        {/*grid for 2 containers */}
+        <Grid container justifyContent="center" direction='row'>        {/*grid for 3 containers */}
 
             <Grid  justifyContent="center" direction='column'>        {/*first grid container inputs */}
               <Box sx={{
@@ -58,11 +56,13 @@ function Register() {
                  mb: 3,
                 },
                 alignItems: 'center',
-                mr: 10,
-                my: 2
+                // mr: 10,
+                my: 2,
+                mx: 2
               }}>
               <Grid item lg={12} xs={12}>
                 <TextField
+                  required
                   id="outlined-helperText"
                   label="Your name"
                   placeholder="Your name"
@@ -72,6 +72,7 @@ function Register() {
               </Grid>
               <Grid item lg={12} xs={12}>
                 <TextField
+                  required
                   id="outlined"
                   label="Your surname"
                   placeholder="Your surname"
@@ -90,6 +91,7 @@ function Register() {
               </Grid>
               <Grid item lg={12} xs={12}>
                 <TextField
+                  required
                   id="outlined-password-input"
                   label="Password"
                   type="password"
@@ -100,51 +102,63 @@ function Register() {
               </Box>
               </Grid>
             
-            <Grid item>
-            <Box sx={{mt: 3}}>
-              <Space direction="vertical">
-                {/* <p>Your birthday</p> */}              
-                  <DatePicker                           //Birthday
-                    onChange={handleBirthdayChange}  
-                  />
-                {/* <p>Your weight</p> */}                         
-                  <InputNumber                              // Weight 
-                    size="large" 
-                    min={30} 
-                    max={180} 
-                    defaultValue={70}
-                    prefix='kg' 
-                    onChange={handleWeightChange}  
-                    helperText='label'
-                  />
-                  <InputNumber                               // Height 
-                    size="large" 
-                    min={140} 
-                    max={230} 
-                    defaultValue={160}
-                    prefix='sm' 
-                    onChange={handleHeightChange}  
-                    helperText='label'
-                  />
-                  <FormControl sx={{mt: 0, minWidth: 120 }}>  {/* bad habits */}
-                 <Select
-                    labelId="demo-select-small"
-                    id="demo-select-small"
-                    // value={age}
-                    label="Age"
-                    onChange={handleBadhabitsChange}
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem> 
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                  </FormControl>
-              </Space>
-            </Box>
+            <Grid justifyContent="center" direction='column'>  {/*second grid inputs container*/}
+            <Box sx={{
+                '& .MuiTextField-root': {
+                 width: '100%',
+                 mb: 3,
+                },
+                mt: 2, 
+                mx: 2}}>
+              <Grid item lg={12} xs={12}>
+                <TextField
+                  required
+                  label="Birthday" //*add validation to form '2022-12-31' 
+                  helperText='Input date in format: "YYYY-М-D" '
+                  
+                />
+              </Grid>
+              <Grid item lg={12} xs={12}>
+              <TextField
+                  required
+                  label="Height" //*add validation to numeric 
+                  InputProps={{ startAdornment: 
+                    <InputAdornment position="start">kg</InputAdornment>, }}
+                    helperText='Input your height in format: "DD"'
+                />
+              </Grid>
+              <Grid item lg={12} xs={12}>
+              <TextField
+                  required
+                  label="Weight" //*add validation to numeric 
+                  InputProps={{ startAdornment: 
+                    <InputAdornment position="start">sm</InputAdornment>, }}
+                    helperText='Input your weight in format: "DD"'
+                />
+              </Grid>
               
+            </Box>
+            </Grid>
+
+            <Grid justifyContent="center" direction='column'>       {/*third grid inputs container*/}
+            <Box sx={{
+              '& .MuiTextField-root': {
+                 width: '100%',
+                 mb: 3,
+                },
+                mt: 2, 
+                mx: 2}}>
+              <Grid item lg={12} xs={12}>
+                <TextField
+                    label="Bad habits" //*add validation to numeric
+                  />
+                </Grid>
+                <Grid item lg={12} xs={12}>
+                <TextField
+                    label="Contraindications"  
+                  />
+              </Grid>
+            </Box>  
             </Grid>
             
             </Grid>
@@ -166,7 +180,7 @@ function Register() {
                   variant='contained'
                   onClick={() => {
                     axios
-                      .get(`//localhost:8080/registration`, {
+                      .get(`//localhost:8080/registration`, {  //add new input to DB!! + config validation 
                         params:{
                           login: login,
                           password: password,
