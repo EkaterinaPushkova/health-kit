@@ -98,7 +98,7 @@ function Auth() {
                       })
                       .then((response) => {
                         if (response.data.ok === true){
-                          navigate('/registration');
+                          navigate('/main');
               
                         }else if(response.data.ok === false){
                           alert("bad");

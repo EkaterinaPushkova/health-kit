@@ -1,9 +1,10 @@
 import React from 'react';
 import {useState} from 'react';
-import Register from './pages/Registration/registration';
 import AppBarHead from './components/AppBarHead';
-import Auth from './pages/Auth/authorization';
-import {BrowserRouter,  Route, Routes, Navigate} from 'react-router-dom';
+import Auth from './pages/authorization';
+import Register from './pages/registration';
+import Main from './pages/main'
+import {BrowserRouter,  Route, Routes} from 'react-router-dom';
 // 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
       <Routes>
       <Route exact path='/' element={<Auth/>}/>
       <Route  path='/registration' element={<Register />}/>
+      <Route path='/main/*' element={<Main/>}/>
       </Routes>
       </BrowserRouter>
       
