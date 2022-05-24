@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import { Button, Paper, TextField, Typography } from '@mui/material';
 import { Container, Grid } from '@mui/material';
 import { Link, useNavigate} from 'react-router-dom';
-//  import Register from '../../pages/Registration/registration';
 import axios from 'axios';
 //   Route, BrowserRouter, useNavigate , Routes
 
@@ -98,7 +97,15 @@ function Auth() {
                       })
                       .then((response) => {
                         if (response.data.ok === true){
-                          navigate('/main');
+                          localStorage.setItem('name',response.data.name);
+                          localStorage.setItem('id',response.data.id);
+                          localStorage.setItem('surname',response.data.surname);
+                          localStorage.setItem('birthday',response.data.birthday);
+                          localStorage.setItem('height',response.data.height);
+                          localStorage.setItem('weight',response.data.weight);
+                          localStorage.setItem('login',response.data.login);
+                          localStorage.setItem('password',response.data.password);
+                         navigate('/main/selectPurpose');
               
                         }else if(response.data.ok === false){
                           alert("bad");

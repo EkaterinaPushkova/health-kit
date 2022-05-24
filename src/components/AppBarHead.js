@@ -20,13 +20,10 @@ function AppBarHead(){
             </Typography>
               <Button 
               color="inherit" 
-              sx={{fontWeight: 'bold'}}>Profile</Button>
+              sx={{fontWeight: 'bold'}}>CheckLists</Button>
               <Button 
               color="inherit"
-              sx={{fontWeight: 'bold'}}>Archieve</Button>
-              <Button
-              color="inherit"
-              sx={{fontWeight: 'bold'}}>Settings</Button>
+              sx={{fontWeight: 'bold'}}>Profile</Button>
           </Toolbar>
         </AppBar>
       </Box>

@@ -1,9 +1,9 @@
 import React from 'react';
 import {useState} from 'react';
 import AppBarHead from './components/AppBarHead';
-import Auth from './pages/authorization';
-import Register from './pages/registration';
-import Main from './pages/main'
+import Auth from './pages/Authorization';
+import Register from './pages/Registration';
+import Main from './pages/Main'
 import {BrowserRouter,  Route, Routes} from 'react-router-dom';
 // 
 function App() {
