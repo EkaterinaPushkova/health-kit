@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import { Button, Paper, TextField, Typography, FormControlLabel, Radio } from '@mui/material';
+import { Button, Paper, TextField, Typography, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { Container, Grid } from '@mui/material';
 import { Link, useNavigate} from 'react-router-dom';
 import { useState } from 'react';
@@ -41,9 +41,9 @@ function Purpose() {
             justify: 'center'
           }}>
           <Typography variant="h5" align="center" color="textPrimary" fontWeight="600">Select the purpose for yourself!</Typography>
-            <Grid container spacing={3} justifyContent="center" direction='row' >
-                
-                <Grid item>
+            <Container maxWidth='sm'>
+            <Box sx={{display: 'flex', justifyContent: 'space-around'}}>
+            <RadioGroup row>
                     <FormControlLabel
                       value="1"
                       control={<Radio />}
@@ -51,8 +51,6 @@ function Purpose() {
                       labelPlacement="bottom"
                       onChange={handlePurpose}
                     />
-                </Grid>
-                <Grid item>
                     <FormControlLabel
                       value="2"
                       control={<Radio />}
@@ -60,8 +58,6 @@ function Purpose() {
                       labelPlacement="bottom"
                       onChange={handlePurpose}
                     />
-                </Grid>
-                <Grid item>
                     <FormControlLabel
                       value="3"
                       control={<Radio />}
@@ -69,12 +65,17 @@ function Purpose() {
                       labelPlacement="bottom"
                       onChange={handlePurpose}
                     />
-                </Grid>
-            </Grid>
+                </RadioGroup>
+            </Box>
+            
+            </Container>
+                
+                
             <hr/>
             <Typography variant="h5" align="center" color="textPrimary" fontWeight="500">Select amount of day training per week</Typography>
-            <Grid container spacing={3} justifyContent="center" direction='row' >
-            <Grid item>
+            <Container maxWidth='md'>
+            <Box sx={{display: 'flex', justifyContent: 'center'}}>
+            <RadioGroup row>
                     <FormControlLabel
                       value="1"
                       control={<Radio />}
@@ -82,8 +83,6 @@ function Purpose() {
                       labelPlacement="bottom"
                       onChange={handleDays}
                     />
-                </Grid>
-                <Grid item>
                     <FormControlLabel
                       value="2"
                       control={<Radio />}
@@ -91,8 +90,6 @@ function Purpose() {
                       labelPlacement="bottom"
                       onChange={handleDays}
                     />
-                </Grid>
-                <Grid item>
                     <FormControlLabel
                       value="3"
                       control={<Radio />}
@@ -100,8 +97,6 @@ function Purpose() {
                       labelPlacement="bottom"
                       onChange={handleDays}
                     />
-                </Grid>
-                <Grid item>
                     <FormControlLabel
                       value="4"
                       control={<Radio />}
@@ -109,9 +104,13 @@ function Purpose() {
                       labelPlacement="bottom"
                       onChange={handleDays}
                     />
-                </Grid>
-            </Grid>
+                    
+                </RadioGroup>
+            </Box>
+            
+            </Container>
             <hr/>
+            <Box sx={{display: 'flex', justifyContent: 'center', m: 2}}>
             <Button
                     variant="contained"
                     size="large"
@@ -119,10 +118,10 @@ function Purpose() {
                     >
                         Go!
                 </Button>
+                </Box>
           </Box>
             
           
-            
          </Paper>
         
         </Container>

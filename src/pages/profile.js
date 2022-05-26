@@ -55,11 +55,17 @@ function Profile() {
       })
       .then((response) => {
           localStorage.setItem("weight",response.data.weight);
+          setWeight(response.data.weight);
           localStorage.setItem("height",response.data.height);
+          setHeight(response.data.height);
           localStorage.setItem("chest",response.data.girth_of_chest);
+          setChest(response.data.girth_of_chest);
           localStorage.setItem("waist",response.data.girth_of_weist);
+          setWaist(response.data.girth_of_weist);
           localStorage.setItem("hips",response.data.girth_of_hips);
-          localStorage.setItem("biceps",response.data.girth_of_biceps);      
+          setHips(response.data.girth_of_hips);
+          localStorage.setItem("biceps",response.data.girth_of_biceps);
+          setBiceps(response.data.girth_of_biceps);      
       }); 
 
     }, []);
@@ -74,7 +80,7 @@ function Profile() {
             <Grid container justifyContent='space-between' direction='row' alignItems='center'>
                 <Grid item>
                     <Typography sx={{mx: 3, mt: 1 }} variant='h4' color="textPrimary" fontWeight="500">
-                    {localStorage.getItem('name')    +' '+localStorage.getItem('surname')+', ' + Math.floor(((Date.parse(today))-(Date.parse(localStorage.   getItem('birthday'))))/31536000000)}
+                    {localStorage.getItem('name')+' '+localStorage.getItem('surname')+', ' + Math.floor(((Date.parse(today))-(Date.parse(localStorage.getItem('birthday'))))/31536000000)}
                     </Typography>
                 </Grid>
                 <Grid item>
@@ -95,7 +101,7 @@ function Profile() {
                 
                 <Box sx={{
                     '& .MuiTextField-root': {
-                        width: '6rem',
+                        width: '7rem',
                         mb: 2
                     },
                     mt: 3
@@ -171,7 +177,7 @@ function Profile() {
                     </Grid>
                 </Box>
 
-                <Grid container spacing={3} alignItems='center' direction='row'>
+                <Grid container spacing={4} alignItems='center' direction='row'>
                         <Grid item >
                             <Typography variant='h4' color="green" fontWeight="600">
                                 ИМТ:   {(localStorage.getItem('weight'))/(Math.pow((localStorage.getItem('height'))/100), 2)}
@@ -197,6 +203,16 @@ function Profile() {
                                         .then((response) => {
                                         
                                         });
+
+                                        axios.get(`//localhost:8080/getListOfResults`, {  
+                                          params:{
+                                            id: localStorage.getItem('id')
+                                          }
+                                        })
+                                        .then((response) => {
+                                          setArr(Object.values(response.data.details));
+                                        }); 
+
                                 }}>
                                 Change params
                             </Button>
