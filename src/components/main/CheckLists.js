@@ -5,11 +5,13 @@ import axios from 'axios';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import List from './List'
+import { useNavigate } from 'react-router-dom';
 
 
 
 function CheckLists() {
   
+    const navigate = useNavigate();
   
     const [arr, setArr] = useState([]);
 
@@ -36,12 +38,17 @@ function CheckLists() {
             justify: 'center'
          }}>
            <Grid container justifyContent="center" >
-                <ButtonGroup size="large"  >
-                    <Button variant="contained" color="secondary"  
-                    >Create a diet</Button>
-                    <Button variant="contained" color="success">Create a workout</Button>
-                </ButtonGroup>
-            
+                    <Button 
+                    variant="contained" 
+                    color="success"
+                    onClick={()=>{
+                        localStorage.removeItem('purpose_id');
+                        localStorage.removeItem('amount_in_week');
+                        localStorage.removeItem('day');
+                        navigate('/main/selectPurpose');
+                    }}>
+                    Select other params
+                    </Button>
            </Grid>
            <Container maxWidth='xs'>
            <Paper elevation={5} sx={{pb: 3, pt: 1, m: 2}}>

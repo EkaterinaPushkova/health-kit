@@ -36,6 +36,114 @@ connection.query(
   
 
 });
+
+
+
+//----------------запрос на получение последних 10 резултатов 
+
+app.get( "/getListOfResults" , (req, res) => {
+
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
+  
+connection.query(
+
+    '(SELECT * FROM (SELECT * FROM results where id_user = '+ req.query.id +' ORDER BY id DESC LIMIT 10) t ORDER BY id);',
+    function(err, results, fields) {
+       
+      var json = {};
+      var key = 'details';
+      json[key] = [];
+       results.forEach(element => {
+         var details={
+           "weight":element.weight,
+           "height":element.height,
+           "girth_of_chest":element.girth_of_chest,
+           "girth_of_weist":element.girth_of_weist,
+           "girth_of_hips":element.girth_of_hips,
+           "girth_of_biceps":element.girth_of_biceps,
+           "date":element.date
+         };
+         json[key].push(details);
+       });
+       res.send(json)
+      
+    }
+  );
+  
+
+});
+
+
+
+//------------запрос на получение резултатов за все время
+
+app.get( "/getFullListOfResults" , (req, res) => {
+
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
+  
+connection.query(
+
+    'SELECT * FROM results where id_user = '+ req.query.id +' ORDER BY id ASC;',
+    function(err, results, fields) {
+       
+      var json = {};
+      var key = 'details';
+      json[key] = [];
+       results.forEach(element => {
+         var details={
+           "weight":element.weight,
+           "height":element.height,
+           "girth_of_chest":element.girth_of_chest,
+           "girth_of_weist":element.girth_of_weist,
+           "girth_of_hips":element.girth_of_hips,
+           "girth_of_biceps":element.girth_of_biceps,
+           "date":element.date
+         };
+         json[key].push(details);
+       });
+       res.send(json)
+      
+    }
+  );
+  
+
+});
+
+app.get( "/getLastResult" , (req, res) => {
+
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
+  
+connection.query(
+
+    'SELECT * FROM results where id_user = '+ req.query.id +'  ORDER BY id DESC LIMIT 1;',
+    function(err, results, fields) {
+       
+      res.status(200).json({
+           "weight":results[0].weight,
+           "height":results[0].height,
+           "girth_of_chest":results[0].girth_of_chest,
+           "girth_of_weist":results[0].girth_of_weist,
+           "girth_of_hips":results[0].girth_of_hips,
+           "girth_of_biceps":results[0].girth_of_biceps,
+           "date":results[0].date
+        
+       });
+       
+      
+    }
+  );
+  
+
+});
+
+
+//----------запрос на получение тренировок по выбранным целям
 app.get( "/getListOfTrainings" , (req, res) => {
 
 
@@ -66,6 +174,8 @@ connection.query(
 
 });
 
+
+//--------------запрос на получение всех вредных привычек
 app.get( "/getBadHabits" , (req, res) => {
 
 
@@ -95,6 +205,8 @@ connection.query(
 
 });
 
+
+//--------------запрос на получение цели
 app.get( "/getPurposes" , (req, res) => {
 
 
@@ -122,6 +234,8 @@ connection.query(
   
 
 });
+
+//---------------------запрос в базу при авторизации
 app.get( "/authentification" , (req, res) => {
 
 
@@ -140,8 +254,6 @@ app.get( "/authentification" , (req, res) => {
                 id:results[0].id,
                 name:results[0].name,
                 surname:results[0].surname,
-                weight: results[0].weight,
-                height: results[0].height,
                 login: results[0].login,
                 purpose_id: results[0].purpose_id,
                 birthday: results[0].birthday
@@ -155,19 +267,36 @@ app.get( "/authentification" , (req, res) => {
     
 });
 
+
+//-------------------------запрос при регистрации
 app.get("/registration", (req, res) => {
 
    
-      res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
   
-      
-    connection.query(
-        'INSERT INTO users VALUES(null,"'+req.query.name+'", "'+req.query.surname+'", "'+req.query.birthday+'", "'+req.query.height+'", "'+req.query.weight+'", "'+req.query.badhabits+'", "'+req.query.login+'", "'+req.query.password+'");',
-     
-      );
-      res.status(200);
-    
+connection.query(
+    'INSERT INTO users VALUES(null,"'+req.query.name+'", "'+req.query.surname+'", "'+req.query.birthday+'",  "'+req.query.badhabits+'", "'+req.query.login+'", "'+req.query.password+'", "'+req.query.contr+'");',
+ 
+  );
+  res.status(200);
+
 });
+
+app.get("/addResult", (req, res) => {
+
+   
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
+  
+connection.query(
+    'INSERT INTO results VALUES(null,'+req.query.weight+', '+req.query.height+', '+req.query.girth_of_chest+',  '+req.query.girth_of_weist+', '+req.query.girth_of_hips+', '+req.query.girth_of_biceps+', CURRENT_DATE() ,"'+req.query.id+'");',
+ 
+  );
+  res.status(200);
+
+});
+
 
 
 

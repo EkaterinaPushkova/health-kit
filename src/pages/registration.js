@@ -1,4 +1,4 @@
-import { Container, Grid, Paper, Typography, TextField, Box, Button, InputAdornment } from "@mui/material";
+import { Container, Grid, Paper, Typography, TextField, Box, Button, InputAdornment, FormHelperText } from "@mui/material";
 import axios from 'axios';
 import { Link} from 'react-router-dom'
 import { useState} from 'react';
@@ -11,9 +11,8 @@ function Register() {
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [birthday, setBirthday] = useState('');
-  const [weight, setWeight] = useState('');
-  const [height, setHeight] = useState('');
   const [badhabits, setBadhabits] = useState('');
+  const [contr, setContr] = useState('');
 
   const handleLoginChange = (e) => {
     setLogin(e.target.value)
@@ -30,14 +29,11 @@ function Register() {
   const handleBirthdayChange = (e) => {
     setBirthday(e.target.value);
   }
-  const handleWeightChange = (e) => {
-    setWeight(e.target.value)
-  }
-  const handleHeightChange = (e) => {
-    setHeight(e.target.value)
-  }
   const handleBadhabitsChange = (e) => {
     setBadhabits(e.target.value)
+  }
+  const handleContrChange = (e) => {
+    setContr(e.target.value)
   }
 
 
@@ -115,50 +111,33 @@ function Register() {
                   required
                   label="Birthday" //*add validation to form '2022-12-31' 
                   helperText='Input date in format: "YYYY-М-D" '
-                  
+                  onChange={handleBirthdayChange}
                 />
               </Grid>
-              <Grid item lg={12} xs={12}>
-              <TextField
-                  required
-                  label="Height" //*add validation to numeric 
-                  InputProps={{ startAdornment: 
-                    <InputAdornment position="start">kg</InputAdornment>, }}
-                    helperText='Input your height in format: "DD"'
-                />
-              </Grid>
-              <Grid item lg={12} xs={12}>
-              <TextField
-                  required
-                  label="Weight" //*add validation to numeric 
-                  InputProps={{ startAdornment: 
-                    <InputAdornment position="start">sm</InputAdornment>, }}
-                    helperText='Input your weight in format: "DD"'
-                />
-              </Grid>
-              
-            </Box>
-            </Grid>
-
-            <Grid justifyContent="center" direction='column'>       {/*third grid inputs container*/}
-            <Box sx={{
+              <Box sx={{
               '& .MuiTextField-root': {
                  width: '100%',
                  mb: 3,
-                },
-                mt: 2, 
-                mx: 2}}>
+                }}}>
               <Grid item lg={12} xs={12}>
                 <TextField
                     label="Bad habits" //*add validation to numeric
+                    onChange={handleBadhabitsChange}
                   />
                 </Grid>
                 <Grid item lg={12} xs={12}>
                 <TextField
                     label="Contraindications"  
+                    onChange={handleContrChange}
                   />
               </Grid>
             </Box>  
+              
+            </Box>
+            </Grid>
+
+            <Grid justifyContent="center" direction='column'>       {/*third grid inputs container*/}
+           
             </Grid>
             
             </Grid>
@@ -168,7 +147,7 @@ function Register() {
         <Container maxWidth="sm">         {/*Container for buttons */}
           <Box sx={{
             '& .MuiButton-root':{
-              mb: 2,
+              mb: 0,
               mt: 0
             },
             justify: 'center'
@@ -187,9 +166,8 @@ function Register() {
                           name: name,
                           surname: surname,
                           birthday: birthday,
-                          weight: weight,
-                          height: height,
-                          badhabits: badhabits
+                          badhabits: badhabits,
+                          contr: contr
                         }
                       })
                       .then((response) => {
@@ -205,6 +183,7 @@ function Register() {
               <Grid item>
               <Link to='/'>
               <Button type="submit" variant="outlined">Login</Button>
+              <FormHelperText>Already sign up?</FormHelperText>
               </Link>
               </Grid>
             </Grid>

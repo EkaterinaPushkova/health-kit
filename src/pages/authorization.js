@@ -1,13 +1,10 @@
 // import React from 'react';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
-import { Button, Paper, TextField, Typography } from '@mui/material';
+import { Button, FormHelperText, Paper, TextField, Typography } from '@mui/material';
 import { Container, Grid } from '@mui/material';
 import { Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
-//   Route, BrowserRouter, useNavigate , Routes
-
-
 
 // const handleLogIn = (e) => {    Routing to Profile (maybe) v5
 //   e.preventDefault()
@@ -76,14 +73,13 @@ function Auth() {
         <Container maxWidth="sm">
           <Box sx={{
             '& .MuiButton-root':{
-              mb: 2
+              mb: 0
             },
             justify: 'center'
           }}>
             <Grid container spacing={3} justifyContent="center">
               <Grid item>
               
-             
               <Button 
                   type="submit" 
                   variant='contained'
@@ -101,8 +97,6 @@ function Auth() {
                           localStorage.setItem('id',response.data.id);
                           localStorage.setItem('surname',response.data.surname);
                           localStorage.setItem('birthday',response.data.birthday);
-                          localStorage.setItem('height',response.data.height);
-                          localStorage.setItem('weight',response.data.weight);
                           localStorage.setItem('login',response.data.login);
                           localStorage.setItem('password',response.data.password);
                          navigate('/main/selectPurpose');
@@ -122,7 +116,10 @@ function Auth() {
               <Grid item>
 
               <Link to='/registration'>
-                <Button type="submit" variant="outlined">Sign Up</Button>
+                <Button 
+                type="submit" 
+                variant="outlined">Sign Up</Button>
+                <FormHelperText>Are you don`t sign up?</FormHelperText>
               </Link>
               
              

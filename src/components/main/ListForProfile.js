@@ -1,22 +1,14 @@
 import { Container, Grid, Checkbox, FormControlLabel, Paper, Typography} from '@mui/material'
 import { useState } from 'react';
 
-function List({item}) {
-    // const [x, remX] = useState('');
-    // const isCheck = (e) => {
-    //     if (x === 'Checked'){
-    //         remX(){
-
-    //         }
-    //     }
-    // }
-
+function ListForProfile({item}) {
+    
     return(
         <Container maxWidth='xs'>
         <Paper elevation={3} sx={{mt: 1}}>
         <Grid container justifyContent="center" direction='column'>
                 <Grid item>
-                    <FormControlLabel control={<Checkbox  />} label={item.name+' '+item.amount_of_reps+'р/'+item.amount_of_sets+'п'}/>
+                    <FormControlLabel control={<Checkbox />} label={item.date.substring(0,10) +'   '+item.weight+'kg '+item.height+'sm'}/>
                 </Grid>
             </Grid>
         </Paper>
@@ -24,4 +16,4 @@ function List({item}) {
     )
 }
 
-export default List;
+export default ListForProfile;

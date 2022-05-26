@@ -4,6 +4,7 @@ import AppBarHead from './components/AppBarHead';
 import Auth from './pages/Authorization';
 import Register from './pages/Registration';
 import Main from './pages/Main'
+import Profile from './pages/Profile';
 import {BrowserRouter,  Route, Routes} from 'react-router-dom';
 // 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       <Route exact path='/' element={<Auth/>}/>
       <Route  path='/registration' element={<Register />}/>
       <Route path='/main/*' element={<Main/>}/>
+      <Route path='/profile' element={<Profile/>}/>
       </Routes>
       </BrowserRouter>
       
@@ -29,7 +31,6 @@ function App() {
   
   )
 
-  // element={IsLoggedIn ? <Navigate to='/registration'/> :  <p>LolLol</p>/*<Navigate to='/'/>*/} 
 }
 
 export default App;
