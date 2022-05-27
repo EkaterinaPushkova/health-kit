@@ -1,4 +1,5 @@
-import { Container, Grid, Paper, Typography, TextField, Box, Button, InputAdornment, FormHelperText } from "@mui/material";
+import { Container, Grid, Paper, Typography, TextField, Box, Button, FormHelperText } from "@mui/material";
+import { MenuItem, Select, InputLabel, FormControl } from "@mui/material";
 import axios from 'axios';
 import { Link} from 'react-router-dom'
 import { useState} from 'react';
@@ -43,7 +44,7 @@ function Register() {
         
         <Typography variant="h5" align="center" color="textPrimary" fontWeight="600">Sign Up</Typography>
         
-        <Grid container justifyContent="center" direction='row'>        {/*grid for 3 containers */}
+        <Grid container justifyContent="center" direction='row'>        {/*grid for 2 containers */}
 
             <Grid  justifyContent="center" direction='column'>        {/*first grid container inputs */}
               <Box sx={{
@@ -110,7 +111,7 @@ function Register() {
                 <TextField
                   required
                   label="Birthday" //*add validation to form '2022-12-31' 
-                  helperText='Input date in format: "YYYY-М-D" '
+                  helperText='Input date in format: "YYYY-ММ-DD" '
                   onChange={handleBirthdayChange}
                 />
               </Grid>
@@ -126,18 +127,24 @@ function Register() {
                   />
                 </Grid>
                 <Grid item lg={12} xs={12}>
-                <TextField
-                    label="Contraindications"  
-                    onChange={handleContrChange}
-                  />
+                <FormControl fullWidth>
+                <InputLabel >Age</InputLabel>
+                    <Select
+                      defaultValue={contr}
+                      label="Age"
+                      onChange={handleContrChange}
+                    >
+                      <MenuItem value={0}>None</MenuItem>
+                      <MenuItem value={1}>Citrus</MenuItem>
+                      <MenuItem value={2}>Milk</MenuItem>
+                      <MenuItem value={3}>Eggs</MenuItem>
+                      <MenuItem value={4}>Meal</MenuItem>
+                    </Select>
+                    </FormControl>
               </Grid>
             </Box>  
               
             </Box>
-            </Grid>
-
-            <Grid justifyContent="center" direction='column'>       {/*third grid inputs container*/}
-           
             </Grid>
             
             </Grid>

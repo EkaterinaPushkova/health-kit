@@ -1,28 +1,20 @@
 // import React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { Button, FormHelperText, Paper, TextField, Typography } from '@mui/material';
 import { Container, Grid } from '@mui/material';
 import { Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
-// const handleLogIn = (e) => {    Routing to Profile (maybe) v5
-//   e.preventDefault()
-//   setIsLoggedIn = true;
-//   history.push('/');
-// }
-
 function Auth() {
 
   const navigate = useNavigate();
  
-  // let navigate = useNavigate();
-  // const handleLogIn = (e) => {
-    
-  //   e.preventDefault()
-  //   state.setIsLoggedIn = true;
-  //   state.navigate("/registration");
-  // };
+  useEffect(() => {
+    if(localStorage.getItem("id") != null){
+        navigate('/profile')
+    }
+  });
 
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');

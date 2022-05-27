@@ -174,6 +174,40 @@ connection.query(
 
 });
 
+//----------запрос на получение тренировок по выбранным целям
+app.get( "/getFullListOfTrainings" , (req, res) => {
+
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
+  
+connection.query(
+
+    'SELECT * from trainings;',
+    function(err, results, fields) {
+       
+      var json = {};
+      var key = 'details';
+      json[key] = [];
+       results.forEach(element => {
+         var details={
+           "name":element.name,
+           "amount_of_reps":element.amount_of_reps,
+           "amount_of_sets":element.amount_of_sets,
+           "purpose_id":element.purpose_id,
+           "amount_in_week":element.amount_in_week,
+           "day":element.day
+         };
+         json[key].push(details);
+       });
+       res.send(json)
+      
+    }
+  );
+  
+
+});
+
 
 //--------------запрос на получение всех вредных привычек
 app.get( "/getBadHabits" , (req, res) => {
@@ -276,7 +310,7 @@ app.get("/registration", (req, res) => {
 
   
 connection.query(
-    'INSERT INTO users VALUES(null,"'+req.query.name+'", "'+req.query.surname+'", "'+req.query.birthday+'",  "'+req.query.badhabits+'", "'+req.query.login+'", "'+req.query.password+'", "'+req.query.contr+'");',
+    'INSERT INTO users VALUES(null,"'+req.query.name+'", "'+req.query.surname+'", "'+req.query.birthday+'",  "'+req.query.login+'", "'+req.query.password+'", "'+req.query.contr+'");',
  
   );
   res.status(200);
@@ -291,6 +325,34 @@ app.get("/addResult", (req, res) => {
   
 connection.query(
     'INSERT INTO results VALUES(null,'+req.query.weight+', '+req.query.height+', '+req.query.girth_of_chest+',  '+req.query.girth_of_weist+', '+req.query.girth_of_hips+', '+req.query.girth_of_biceps+', CURRENT_DATE() ,"'+req.query.id+'");',
+ 
+  );
+  res.status(200);
+
+});
+
+app.get("/addTraining", (req, res) => {
+
+   
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
+  
+connection.query(
+    'INSERT INTO trainings VALUES(null,'+req.query.name+', '+req.query.amount_of_reps+', '+req.query.amount_of_sets+',  '+req.query.purpose_id+', '+req.query.amount_in_week+', '+req.query.day+');',
+ 
+  );
+  res.status(200);
+
+});
+
+app.get("/deleteTraining", (req, res) => {
+
+   
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
+  
+connection.query(
+    'DELETE from trainings where id = '+req.query.id+';',
  
   );
   res.status(200);

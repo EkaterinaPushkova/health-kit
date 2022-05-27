@@ -15,6 +15,13 @@ function CheckLists() {
   
     const [arr, setArr] = useState([]);
 
+    useEffect(() => {
+      if(localStorage.getItem("id") === null){
+          navigate('/');
+          alert('Sign in or sign up!')
+      }
+    });
+
 
      useEffect(()=>{
       axios.get(`//localhost:8080/getListOfTrainings`, {  

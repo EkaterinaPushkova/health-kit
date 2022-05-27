@@ -11,14 +11,17 @@ function AppBarHead(){
 const navigate = useNavigate();
 
   const toProfile = (e) => {
-    e.preventDefault();
     navigate('/profile')
   };
 
   const toCheckLists = (e) => {
-    e.preventDefault();
     navigate('/main/checklists')
   }
+
+  // useEffect(() => {
+    
+  // });
+
 
   return(
     <Box sx={{ flexGrow: 2 }}>
@@ -40,7 +43,18 @@ const navigate = useNavigate();
               <Button 
               color="inherit" 
               sx={{fontWeight: 'bold'}}
-              onClick={toCheckLists}>
+              onClick={() => {
+                for(let i = 1; i < 2; i++){
+                  if(localStorage.getItem("purpose_id") === null){
+                  navigate('/main/selectPurpose/');
+                  alert('Select purpose!');
+                  }else{toCheckLists()};
+                }}
+                }
+                >
+                  
+                
+                
               CheckLists
               </Button>
 

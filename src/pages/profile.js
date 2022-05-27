@@ -1,14 +1,43 @@
+import * as React from 'react';
 import { Container, Paper, Grid, Box} from '@mui/material';
 import { Typography, TextField, InputAdornment, Button  } from '@mui/material' ;
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle'
 import ListForProfile from '../components/main/ListForProfile';
-
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+
+
 function Profile() {
 
     const navigate = useNavigate();
 
+    const [open, setOpen] = React.useState(false); //for openDialog
+    const [scroll, setScroll] = React.useState('paper');
+
+    const handleClickOpen = (scrollType) => () => {
+        setOpen(true);
+        setScroll(scrollType);
+      };
+    
+      const handleClose = () => {
+        setOpen(false);
+      };
+      const descriptionElementRef = React.useRef(null);
+      React.useEffect(() => {
+        if (open) {
+          const { current: descriptionElement } = descriptionElementRef;
+          if (descriptionElement !== null) {
+            descriptionElement.focus();
+          }
+        }
+      }, [open]);
+
+    const [bli,setBli] = useState("");
     const [weight, setWeight] = useState();
     const [height, setHeight] = useState();
     const [chest, setChest] = useState();
@@ -36,7 +65,14 @@ function Profile() {
     }
 
     const [arr, setArr] = useState([]);         //---------вывод последних 10 резултатов
-    const [weightChange, setWeightChange] = useState(0);
+    const [fullArr, setFullArr] = useState([]);
+
+    useEffect(() => {                           //for check id in localStorage
+        if(localStorage.getItem("id") === null){
+            navigate('/');
+            alert('Sign in or sign up!')
+        }
+      });
 
      useEffect(()=>{
       axios.get(`//localhost:8080/getListOfResults`, {  
@@ -46,6 +82,15 @@ function Profile() {
       })
       .then((response) => {
         setArr(Object.values(response.data.details));
+      }); 
+
+      axios.get(`//localhost:8080/getFullListOfResults`, {  
+        params:{
+          id: localStorage.getItem('id')
+        }
+      })
+      .then((response) => {
+        setFullArr(Object.values(response.data.details));
       }); 
       
       axios.get(`//localhost:8080/getLastResult`, {  
@@ -65,7 +110,8 @@ function Profile() {
           localStorage.setItem("hips",response.data.girth_of_hips);
           setHips(response.data.girth_of_hips);
           localStorage.setItem("biceps",response.data.girth_of_biceps);
-          setBiceps(response.data.girth_of_biceps);      
+          setBiceps(response.data.girth_of_biceps);  
+          setBli((localStorage.getItem('weight'))/(Math.pow((localStorage.getItem('height'))/100), 2))       
       }); 
 
     }, []);
@@ -180,13 +226,13 @@ function Profile() {
                 <Grid container spacing={4} alignItems='center' direction='row'>
                         <Grid item >
                             <Typography variant='h4' color="green" fontWeight="600">
-                                BМI:   {(localStorage.getItem('weight'))/(Math.pow((localStorage.getItem('height'))/100), 2)}
+                                BМI:   {bli}
                             </Typography> 
                         </Grid>
                         <Grid item >
                             <Button 
                                 variant='contained' 
-                                color='success'
+                                color='success' 
                                 onClick={() => {
                                     axios
                                         .get(`//localhost:8080/addResult`, {  
@@ -213,6 +259,29 @@ function Profile() {
                                           setArr(Object.values(response.data.details));
                                         }); 
 
+
+                                        axios.get(`//localhost:8080/getLastResult`, {  
+        params:{
+          id: localStorage.getItem('id')
+        }
+      })
+      .then((response) => {
+          localStorage.setItem("weight",response.data.weight);
+          setWeight(response.data.weight);
+          localStorage.setItem("height",response.data.height);
+          setHeight(response.data.height);
+          localStorage.setItem("chest",response.data.girth_of_chest);
+          setChest(response.data.girth_of_chest);
+          localStorage.setItem("waist",response.data.girth_of_weist);
+          setWaist(response.data.girth_of_weist);
+          localStorage.setItem("hips",response.data.girth_of_hips);
+          setHips(response.data.girth_of_hips);
+          localStorage.setItem("biceps",response.data.girth_of_biceps);
+          setBiceps(response.data.girth_of_biceps);  
+          setBli((localStorage.getItem('weight'))/(Math.pow((localStorage.getItem('height'))/100), 2))    
+      }); 
+
+
                                 }}>
                                 Change params
                             </Button>
@@ -222,12 +291,39 @@ function Profile() {
                 </Container>
                 <hr/>
 
-                <Grid container direction='row'>
+                <Grid container direction='row' >
                     <Grid item xs={12} lg={8}>
-                        <Container maxWidth='md'>
+                        <Container maxWidth='md' sx={{mb: 5}}>
                         <Typography variant='h5' align='center' fontWeight='500' color='textPrimary'>Last 5 results</Typography>
+                        <Button 
+                        variant='outlined' 
+                        size='small'
+                        onClick={handleClickOpen('paper')}>Show all results</Button>
+                            <Dialog
+                               maxWidth='md'
+                               minWidth='xs'
+                               open={open}
+                               onClose={handleClose}
+                               scroll={scroll}
+                               aria-labelledby="scroll-dialog-title"
+                               aria-describedby="scroll-dialog-description"
+                             >
+                               <DialogTitle id="scroll-dialog-title">Your results for all time</DialogTitle>
+                               <DialogContent dividers={scroll === 'paper'}>
+                                 <DialogContentText
+                                   tabIndex={-1}
+                                 >
+                                 
+                                {<ListForProfile rows={fullArr}/> } 
+                                 </DialogContentText>
+                               </DialogContent>
+                               <DialogActions>
+                                 <Button onClick={handleClose}>Cancel</Button>
+                               </DialogActions>
+                             </Dialog>
+                        
                         <hr/>
-                            {<ListForProfile rows={arr}/> } 
+                        {<ListForProfile rows={arr}/> } 
                         </Container>
                     </Grid>
                 </Grid>
@@ -236,7 +332,6 @@ function Profile() {
                 
 
                 <Typography variant='h6' color="textPrimary" fontWeight="600" >
-                {weightChange}
                 </Typography>
                 
 
