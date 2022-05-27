@@ -49,7 +49,7 @@ app.get( "/getListOfResults" , (req, res) => {
   
 connection.query(
 
-    '(SELECT * FROM (SELECT * FROM results where id_user = '+ req.query.id +' ORDER BY id DESC LIMIT 10) t ORDER BY id);',
+    '(SELECT * FROM (SELECT * FROM results where id_user = '+ req.query.id +' ORDER BY id DESC LIMIT 5) t ORDER BY id);',
     function(err, results, fields) {
        
       var json = {};

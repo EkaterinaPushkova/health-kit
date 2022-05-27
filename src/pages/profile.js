@@ -97,7 +97,7 @@ function Profile() {
 
                 <hr/>
                 <Container sx={{mx: 0}}>
-                <Typography variant='h6' color="textPrimary" fontWeight="400" >мои параметры:</Typography>
+                <Typography variant='h6' color="textPrimary" fontWeight="400" >Мy params:</Typography>
                 
                 <Box sx={{
                     '& .MuiTextField-root': {
@@ -180,7 +180,7 @@ function Profile() {
                 <Grid container spacing={4} alignItems='center' direction='row'>
                         <Grid item >
                             <Typography variant='h4' color="green" fontWeight="600">
-                                ИМТ:   {(localStorage.getItem('weight'))/(Math.pow((localStorage.getItem('height'))/100), 2)}
+                                BМI:   {(localStorage.getItem('weight'))/(Math.pow((localStorage.getItem('height'))/100), 2)}
                             </Typography> 
                         </Grid>
                         <Grid item >
@@ -219,11 +219,21 @@ function Profile() {
                         </Grid>
                        
                     </Grid>
-                    
-                
                 </Container>
+                <hr/>
 
-                {arr.map(el=><ListForProfile item={el}/>) } 
+                <Grid container direction='row'>
+                    <Grid item xs={12} lg={8}>
+                        <Container maxWidth='md'>
+                        <Typography variant='h5' align='center' fontWeight='500' color='textPrimary'>Last 5 results</Typography>
+                        <hr/>
+                            {<ListForProfile rows={arr}/> } 
+                        </Container>
+                    </Grid>
+                </Grid>
+
+                
+                
 
                 <Typography variant='h6' color="textPrimary" fontWeight="600" >
                 {weightChange}
