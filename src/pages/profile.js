@@ -261,25 +261,25 @@ function Profile() {
 
 
                                         axios.get(`//localhost:8080/getLastResult`, {  
-        params:{
-          id: localStorage.getItem('id')
-        }
-      })
-      .then((response) => {
-          localStorage.setItem("weight",response.data.weight);
-          setWeight(response.data.weight);
-          localStorage.setItem("height",response.data.height);
-          setHeight(response.data.height);
-          localStorage.setItem("chest",response.data.girth_of_chest);
-          setChest(response.data.girth_of_chest);
-          localStorage.setItem("waist",response.data.girth_of_weist);
-          setWaist(response.data.girth_of_weist);
-          localStorage.setItem("hips",response.data.girth_of_hips);
-          setHips(response.data.girth_of_hips);
-          localStorage.setItem("biceps",response.data.girth_of_biceps);
-          setBiceps(response.data.girth_of_biceps);  
-          setBli((localStorage.getItem('weight'))/(Math.pow((localStorage.getItem('height'))/100), 2))    
-      }); 
+                                          params:{
+                                            id: localStorage.getItem('id')
+                                          }
+                                        })
+                                        .then((response) => {
+                                            localStorage.setItem("weight",response.data.weight);
+                                            setWeight(response.data.weight);
+                                            localStorage.setItem("height",response.data.height);
+                                            setHeight(response.data.height);
+                                            localStorage.setItem("chest",response.data.girth_of_chest);
+                                            setChest(response.data.girth_of_chest);
+                                            localStorage.setItem("waist",response.data.girth_of_weist);
+                                            setWaist(response.data.girth_of_weist);
+                                            localStorage.setItem("hips",response.data.girth_of_hips);
+                                            setHips(response.data.girth_of_hips);
+                                            localStorage.setItem("biceps",response.data.girth_of_biceps);
+                                            setBiceps(response.data.girth_of_biceps);  
+                                            setBli((localStorage.getItem('weight'))/(Math.pow((localStorage.getItem('height'))/100), 2))    
+                                        }); 
 
 
                                 }}>

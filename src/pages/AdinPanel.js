@@ -1,7 +1,0 @@
-function AdminPanel() {
-
-
-    return(
-        
-    )
-}

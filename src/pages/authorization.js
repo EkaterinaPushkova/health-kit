@@ -1,7 +1,7 @@
-// import React from 'react';
+import React from 'react';
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import { Button, FormHelperText, Paper, TextField, Typography } from '@mui/material';
+import { Button, FormHelperText, Paper, TextField, Typography, DialogContent, DialogActions, Dialog, DialogTitle } from '@mui/material';
 import { Container, Grid } from '@mui/material';
 import { Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
@@ -9,12 +9,14 @@ import axios from 'axios';
 function Auth() {
 
   const navigate = useNavigate();
+
  
   useEffect(() => {
     if(localStorage.getItem("id") != null){
         navigate('/profile')
     }
   });
+
 
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -25,6 +27,33 @@ function Auth() {
   }
   const handlePasswordChange = (e) => {
     setPassword(e.target.value)
+  }
+  
+
+  const [open, setOpen] = React.useState(false); //for openDialog
+
+  const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+    const descriptionElementRef = React.useRef(null);
+    React.useEffect(() => {
+      if (open) {
+        const { current: descriptionElement } = descriptionElementRef;
+        if (descriptionElement !== null) {
+          descriptionElement.focus();
+        }
+      }
+    }, [open]);
+
+  const keyAdmin = 'qaws123';
+  const [key, setKey] = useState('');
+
+  const handlerAdminChange = (e) => {
+    setKey(e.target.value);
   }
   
   return (
@@ -53,6 +82,7 @@ function Auth() {
           </Grid>
           <Grid item>
           <TextField
+              required
               id="outlined-password-input"
               label="Password"
               type="password"
@@ -60,7 +90,10 @@ function Auth() {
               onChange={handlePasswordChange}
             />
           </Grid>
-            </Box>
+          <Grid item>
+          </Grid>
+          
+          </Box>
         </Grid>
         <Container maxWidth="sm">
           <Box sx={{
@@ -69,18 +102,22 @@ function Auth() {
             },
             justify: 'center'
           }}>
-            <Grid container spacing={3} justifyContent="center">
+            <Grid container spacing={2} justifyContent="center">
               <Grid item>
               
               <Button 
                   type="submit" 
                   variant='contained'
                   onClick={() => {
-                    axios
+                    if(key === keyAdmin){
+                      navigate('/adminpanel')
+                    }else{
+                      axios
                       .get(`//localhost:8080/authentification`, {
                         params:{
                           login: login,
-                          password: password
+                          password: password,
+                          // keyAdmin: keyAdmin
                         }
                       })
                       .then((response) => {
@@ -100,6 +137,8 @@ function Auth() {
                       .catch(error => {
                         alert(error)
                       });
+                    }
+                    
                   }}>Login
                 </Button>
               
@@ -111,9 +150,45 @@ function Auth() {
                 <Button 
                 type="submit" 
                 variant="outlined">Sign Up</Button>
-                <FormHelperText>Are you don`t sign up?</FormHelperText>
+                <FormHelperText>Don`t sign up?</FormHelperText>
               </Link>
               
+
+              <Grid item>
+              <Button 
+              size='small'
+              onClick={handleClickOpen}>For moders</Button>
+              </Grid>
+
+              <Dialog
+                  maxWidth='sm'
+                  minWidth='xs'
+                  open={open}
+                  onClose={handleClose}
+                >
+                  <DialogTitle >Enter key</DialogTitle>
+                  <DialogContent >
+                  <TextField
+                  type='password'
+                  label='key'
+                  onChange={handlerAdminChange}></TextField>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={() => {
+                          if(key === keyAdmin){
+                      
+                      localStorage.setItem('key','yes');
+                      navigate('/adminpanel')}
+                      else{
+                        alert('incorrect key');
+                      }
+                    }
+                      
+                    }>OK</Button>
+                  </DialogActions>
+                </Dialog>
+           
              
               </Grid>
             </Grid>

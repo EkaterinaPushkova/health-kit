@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import {Link, Route, Routes, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 
 function AppBarHead(){
@@ -17,6 +17,7 @@ const navigate = useNavigate();
   const toCheckLists = (e) => {
     navigate('/main/checklists')
   }
+
 
   // useEffect(() => {
     
@@ -39,7 +40,6 @@ const navigate = useNavigate();
               </Typography>
             
             
-
               <Button 
               color="inherit" 
               sx={{fontWeight: 'bold'}}
@@ -52,9 +52,6 @@ const navigate = useNavigate();
                 }}
                 }
                 >
-                  
-                
-                
               CheckLists
               </Button>
 
@@ -63,6 +60,8 @@ const navigate = useNavigate();
                 color="inherit"
                 sx={{fontWeight: 'bold'}}
                 onClick={toProfile}>Profile</Button>
+
+                
               
           </Toolbar>
         </AppBar>
