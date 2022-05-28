@@ -183,7 +183,7 @@ app.get( "/getFullListOfTrainings" , (req, res) => {
   
 connection.query(
 
-    'SELECT * from trainings;',
+    'SELECT trainings.id,trainings.name,trainings.amount_of_reps,trainings.amount_of_sets,paths.path_name,trainings.amount_in_week,trainings.day from trainings,paths where trainings.purpose_id = paths.id;',
     function(err, results, fields) {
        
       var json = {};
@@ -191,10 +191,11 @@ connection.query(
       json[key] = [];
        results.forEach(element => {
          var details={
+           "id":element.id,
            "name":element.name,
            "amount_of_reps":element.amount_of_reps,
            "amount_of_sets":element.amount_of_sets,
-           "purpose_id":element.purpose_id,
+           "purpose_id":element.path_name,
            "amount_in_week":element.amount_in_week,
            "day":element.day
          };
@@ -338,7 +339,7 @@ app.get("/addTraining", (req, res) => {
 
   
 connection.query(
-    'INSERT INTO trainings VALUES(null,'+req.query.name+', '+req.query.amount_of_reps+', '+req.query.amount_of_sets+',  '+req.query.purpose_id+', '+req.query.amount_in_week+', '+req.query.day+');',
+    'INSERT INTO trainings VALUES(null,"'+req.query.name+'", '+req.query.amount_of_reps+', '+req.query.amount_of_sets+',  '+req.query.purpose_id+', '+req.query.amount_in_week+', '+req.query.day+');',
  
   );
   res.status(200);

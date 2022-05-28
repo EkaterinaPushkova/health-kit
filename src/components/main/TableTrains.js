@@ -7,36 +7,41 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+import Button from '@mui/material/Button';
+
 export default function TableTrains({rows}) {
     return (
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <TableContainer sx={{ maxHeight: 400 }} component={Paper}>
+        <Table 
+        stickyHeader 
+        aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Entry date</TableCell>
-              <TableCell align="right">Weight&nbsp;(kg)</TableCell>
-              <TableCell align="right">Height&nbsp;(sm)</TableCell>
-              <TableCell align="right">Girth of chest&nbsp;(sm)</TableCell>
-              <TableCell align="right">Girth of waist&nbsp;(sm)</TableCell>
-              <TableCell align="right">Girth of hips&nbsp;(sm)</TableCell>
-              <TableCell align="right">Girth of biceps&nbsp;(sm)</TableCell>
+              <TableCell>id</TableCell>
+              <TableCell align="right">Name</TableCell>
+              <TableCell align="right">Amount of rep-s</TableCell>
+              <TableCell align="right">Amount of sets</TableCell>
+              <TableCell align="right">Purpose</TableCell>
+              <TableCell align="right">Amount in week</TableCell>
+              <TableCell align="right">Day</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row) => (
               <TableRow
-                key={row.date}
+                key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.date.substring(5,10)}
+                  {row.id}
                 </TableCell>
-                <TableCell align="right">{row.weight}</TableCell>
-                <TableCell align="right">{row.height}</TableCell>
-                <TableCell align="right">{row.girth_of_chest}</TableCell>
-                <TableCell align="right">{row.girth_of_weist}</TableCell>
-                <TableCell align="right">{row.girth_of_hips}</TableCell>
-                <TableCell align="right">{row.girth_of_biceps}</TableCell>
+                <TableCell align="right">{row.name}</TableCell>
+                <TableCell align="right">{row.amount_of_reps}</TableCell>
+                <TableCell align="right">{row.amount_of_sets}</TableCell>
+                <TableCell align="right">{row.purpose_id}</TableCell>
+                <TableCell align="right">{row.amount_in_week}</TableCell>
+                <TableCell align="right">{row.day}</TableCell>
+                
               </TableRow>
             ))}
           </TableBody>
