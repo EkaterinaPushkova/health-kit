@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import { Button, FormHelperText, Paper, TextField, Typography, DialogContent, DialogActions, Dialog, DialogTitle } from '@mui/material';
+import { Button,  Paper, TextField, Typography, DialogContent, DialogActions, Dialog, DialogTitle } from '@mui/material';
 import { Container, Grid } from '@mui/material';
 import { Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
@@ -12,6 +12,9 @@ function Auth() {
 
  
   useEffect(() => {
+
+  localStorage.setItem('diet','[]');
+  localStorage.setItem('calories',0);
     if(localStorage.getItem("id") != null){
         navigate('/profile')
     }
@@ -49,7 +52,7 @@ function Auth() {
       }
     }, [open]);
 
-  const keyAdmin = 'qaws123';
+  const keyAdmin = 'qaws123'; //G5iyUiRbX9
   const [key, setKey] = useState('');
 
   const handlerAdminChange = (e) => {
@@ -60,15 +63,15 @@ function Auth() {
     <Container maxWidth="sm">
       <Paper elevation={7} sx={{mt: 3}}>
         <Container maxWidth="sm">
-        <Typography variant="h5" align="center" color="textPrimary" fontWeight="600">Sign In</Typography>
+        <Typography variant="h5" align="center" color="textPrimary" fontWeight="500">Авторизация</Typography>
         <Grid container justifyContent="center" direction='column'>
           <Box sx={{
             '& .MuiTextField-root': {
              width: '100%',
-             mb: 3,
+             mb: 2,
             },
             alignItems: 'center',
-            mx: 10,
+            mx: '10%',
             my: 2
           }}>
           <Grid item>
@@ -76,11 +79,10 @@ function Auth() {
               required
               id="outlined-required"
               label="Login"
-              placeholder="Hello World"
               onChange={handleLoginChange}
             />
           </Grid>
-          <Grid item>
+          <Grid item >
           <TextField
               required
               id="outlined-password-input"
@@ -117,7 +119,6 @@ function Auth() {
                         params:{
                           login: login,
                           password: password,
-                          // keyAdmin: keyAdmin
                         }
                       })
                       .then((response) => {
@@ -139,26 +140,30 @@ function Auth() {
                       });
                     }
                     
-                  }}>Login
+                  }}>Войти
                 </Button>
               
                 
               </Grid>
-              <Grid item>
 
+              <Grid item>
               <Link to='/registration'>
                 <Button 
                 type="submit" 
-                variant="outlined">Sign Up</Button>
-                <FormHelperText>Don`t sign up?</FormHelperText>
+                variant="outlined">Зарегистрироваться</Button>
               </Link>
-              
-
-              <Grid item>
-              <Button 
-              size='small'
-              onClick={handleClickOpen}>For moders</Button>
               </Grid>
+
+            </Grid>
+
+              <Container maxWidth='xs' >
+                        <Box sx={{mt: 2, display: 'flex', justifyContent: 'center'}}>
+                          <Button 
+                            size='small'
+                            onClick={handleClickOpen}>Админ-панель</Button>
+                            </Box>
+              </Container>
+             
 
               <Dialog
                   maxWidth='sm'
@@ -166,7 +171,7 @@ function Auth() {
                   open={open}
                   onClose={handleClose}
                 >
-                  <DialogTitle >Enter key</DialogTitle>
+                  <DialogTitle >Введите ключ</DialogTitle>
                   <DialogContent >
                   <TextField
                   type='password'
@@ -181,7 +186,7 @@ function Auth() {
                       localStorage.setItem('key','yes');
                       navigate('/adminpanel')}
                       else{
-                        alert('incorrect key');
+                        alert('Неверный ключ');
                       }
                     }
                       
@@ -190,8 +195,8 @@ function Auth() {
                 </Dialog>
            
              
-              </Grid>
-            </Grid>
+             
+            
           </Box>
         </Container>    
           

@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
-import { Button, Paper, TextField, Typography, FormControlLabel, Radio, RadioGroup } from '@mui/material';
-import { Container, Grid } from '@mui/material';
-import { Link, useNavigate} from 'react-router-dom';
+import { Button, Paper, Typography, FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import { Container } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 import axios from 'axios';
@@ -40,28 +40,28 @@ function Purpose() {
             },
             justify: 'center'
           }}>
-          <Typography variant="h5" align="center" color="textPrimary" fontWeight="600">Select the purpose for yourself!</Typography>
+          <Typography variant="h5" align="center" color="textPrimary" fontWeight="500">Выбор цели</Typography>
             <Container maxWidth='sm'>
             <Box sx={{display: 'flex', justifyContent: 'space-around'}}>
             <RadioGroup row>
                     <FormControlLabel
                       value="1"
                       control={<Radio />}
-                      label="fat buring"
+                      label="Сброс веса"
                       labelPlacement="bottom"
                       onChange={handlePurpose}
                     />
                     <FormControlLabel
                       value="2"
                       control={<Radio />}
-                      label="body weight gain"
+                      label="Набор массы тела"
                       labelPlacement="bottom"
                       onChange={handlePurpose}
                     />
                     <FormControlLabel
                       value="3"
                       control={<Radio />}
-                      label="maintaining health"
+                      label="Поддержание здоровья"
                       labelPlacement="bottom"
                       onChange={handlePurpose}
                     />
@@ -72,35 +72,35 @@ function Purpose() {
                 
                 
             <hr/>
-            <Typography variant="h5" align="center" color="textPrimary" fontWeight="500">Select amount of day training per week</Typography>
+            <Typography variant="h5" align="center" color="textPrimary" fontWeight="500">Выбор количества занятий в неделю</Typography>
             <Container maxWidth='md'>
             <Box sx={{display: 'flex', justifyContent: 'center'}}>
             <RadioGroup row>
                     <FormControlLabel
                       value="1"
                       control={<Radio />}
-                      label="one day/week"
+                      label="1 день в неделю"
                       labelPlacement="bottom"
                       onChange={handleDays}
                     />
                     <FormControlLabel
                       value="2"
                       control={<Radio />}
-                      label="two days/week"
+                      label="2 дня в неделю"
                       labelPlacement="bottom"
                       onChange={handleDays}
                     />
                     <FormControlLabel
                       value="3"
                       control={<Radio />}
-                      label="three days/week"
+                      label="3 дня в неделю"
                       labelPlacement="bottom"
                       onChange={handleDays}
                     />
                     <FormControlLabel
                       value="4"
                       control={<Radio />}
-                      label="four days/week"
+                      label="4 дня в неделю"
                       labelPlacement="bottom"
                       onChange={handleDays}
                     />
@@ -116,7 +116,7 @@ function Purpose() {
                     size="large"
                     onClick={onSubmit}
                     >
-                        Go!
+                        Ок
                 </Button>
                 </Box>
           </Box>

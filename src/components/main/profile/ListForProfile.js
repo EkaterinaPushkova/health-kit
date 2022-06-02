@@ -13,13 +13,13 @@ export default function ListForProfile({rows}) {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Entry date</TableCell>
-              <TableCell align="right">Weight&nbsp;(kg)</TableCell>
-              <TableCell align="right">Height&nbsp;(sm)</TableCell>
-              <TableCell align="right">Girth of chest&nbsp;(sm)</TableCell>
-              <TableCell align="right">Girth of waist&nbsp;(sm)</TableCell>
-              <TableCell align="right">Girth of hips&nbsp;(sm)</TableCell>
-              <TableCell align="right">Girth of biceps&nbsp;(sm)</TableCell>
+              <TableCell>Дата изменения</TableCell>
+              <TableCell align="right">Вес&nbsp;(kg)</TableCell>
+              <TableCell align="right">Рост&nbsp;(sm)</TableCell>
+              <TableCell align="right">Обхват груди&nbsp;(sm)</TableCell>
+              <TableCell align="right">Обхват талии&nbsp;(sm)</TableCell>
+              <TableCell align="right">Обхват бедер&nbsp;(sm)</TableCell>
+              <TableCell align="right">Обхват рук&nbsp;(sm)</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

@@ -1,16 +1,7 @@
-import { Container, Grid, Checkbox, FormControlLabel, Paper, Typography} from '@mui/material'
+import { Container, Grid, Checkbox, FormControlLabel, Paper} from '@mui/material'
 import { useState } from 'react';
 
-function List({item}) {
-    // const [x, remX] = useState('');
-    // const isCheck = (e) => {
-    //     if (x === 'Checked'){
-    //         remX(){
-
-    //         }
-    //     }
-    // }
-
+function ListTrain({item}) {
     return(
         <Container maxWidth='xs'>
         <Paper elevation={3} sx={{mt: 1}}>
@@ -24,4 +15,4 @@ function List({item}) {
     )
 }
 
-export default List;
+export default ListTrain;

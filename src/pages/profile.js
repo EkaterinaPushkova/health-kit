@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle'
-import ListForProfile from '../components/main/ListForProfile';
+import ListForProfile from '../components/main/profile/ListForProfile';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +16,8 @@ function Profile() {
 
     const navigate = useNavigate();
 
-    const [open, setOpen] = React.useState(false); //for openDialog
+
+    const [open, setOpen] = React.useState(false);      //for openDialog
     const [scroll, setScroll] = React.useState('paper');
 
     const handleClickOpen = (scrollType) => () => {
@@ -36,6 +37,7 @@ function Profile() {
           }
         }
       }, [open]);
+
 
     const [bli,setBli] = useState("");
     const [weight, setWeight] = useState();
@@ -64,15 +66,9 @@ function Profile() {
         setBiceps(e.target.value)
     }
 
+
     const [arr, setArr] = useState([]);         //---------вывод последних 10 резултатов
     const [fullArr, setFullArr] = useState([]);
-
-    useEffect(() => {                           //for check id in localStorage
-        if(localStorage.getItem("id") === null){
-            navigate('/');
-            alert('Sign in or sign up!')
-        }
-      });
 
      useEffect(()=>{
       axios.get(`//localhost:8080/getListOfResults`, {  
@@ -136,18 +132,18 @@ function Profile() {
                     onClick={()=>{
                         localStorage.clear();
                         navigate('/');
-                    }}>LogOut</Button>
+                    }}>Выйти</Button>
                 </Grid>
 
             </Grid>
 
                 <hr/>
                 <Container sx={{mx: 0}}>
-                <Typography variant='h6' color="textPrimary" fontWeight="400" >Мy params:</Typography>
+                <Typography variant='h6' color="textPrimary" fontWeight="400" >Мои параметры:</Typography>
                 
                 <Box sx={{
                     '& .MuiTextField-root': {
-                        width: '7rem',
+                        width: '8rem',
                         mb: 2
                     },
                     mt: 3
@@ -158,9 +154,9 @@ function Profile() {
                             InputProps={{
                               endAdornment: <InputAdornment position="end">kg</InputAdornment>,
                             }}
-                            label='Weight'
+                            label='Вес'
                             defaultValue={localStorage.getItem('weight')}
-                            helperText='input new'
+                            helperText='Ввести новые'
                             onChange={handlerWeightChange}
                         />
                     </Grid>
@@ -169,9 +165,9 @@ function Profile() {
                             InputProps={{
                               endAdornment: <InputAdornment position="end">sm</InputAdornment>,
                             }}
-                            label='Height'
+                            label='Рост'
                             defaultValue={localStorage.getItem('height')}
-                            helperText='input new'
+                            helperText='Ввести новые'
                             onChange={handlerHeightChange}
                         />
                     </Grid>
@@ -180,9 +176,9 @@ function Profile() {
                             InputProps={{
                               endAdornment: <InputAdornment position="end">sm</InputAdornment>,
                             }}
-                            label='Chest'
+                            label='О.Груди'
                             defaultValue={localStorage.getItem('chest')}
-                            helperText='input new'
+                            helperText='Ввести новые'
                             onChange={handlerChestChange}
                         />
                     </Grid>
@@ -191,9 +187,9 @@ function Profile() {
                             InputProps={{
                               endAdornment: <InputAdornment position="end">sm</InputAdornment>,
                             }}
-                            label='Waist'
+                            label='О.Талии'
                             defaultValue={localStorage.getItem('waist')}
-                            helperText='input new'
+                            helperText='Ввести новые'
                             onChange={handlerWaistChange}
                         />
                     </Grid>
@@ -202,9 +198,9 @@ function Profile() {
                             InputProps={{
                               endAdornment: <InputAdornment position="end">sm</InputAdornment>,
                             }}
-                            label='Hips'
+                            label='О.Бедер'
                             defaultValue={localStorage.getItem('hips')}
-                            helperText='input new'
+                            helperText='Ввести новые'
                             onChange={handlerHipsChange}
                         />
                     </Grid>
@@ -213,9 +209,9 @@ function Profile() {
                             InputProps={{
                               endAdornment: <InputAdornment position="end">sm</InputAdornment>,
                             }}
-                            label='Biceps'
+                            label='О.Рук'
                             defaultValue={localStorage.getItem('biceps')}
-                            helperText='input new'
+                            helperText='Ввести новые'
                             onChange={handlerBicepsChange}
                         />
                     </Grid>
@@ -226,7 +222,7 @@ function Profile() {
                 <Grid container spacing={4} alignItems='center' direction='row'>
                         <Grid item >
                             <Typography variant='h4' color="green" fontWeight="600">
-                                BМI:   {bli}
+                                ИМТ:   {bli}
                             </Typography> 
                         </Grid>
                         <Grid item >
@@ -283,7 +279,7 @@ function Profile() {
 
 
                                 }}>
-                                Change params
+                                Ввести новые параметры
                             </Button>
                         </Grid>
                        
@@ -294,11 +290,11 @@ function Profile() {
                 <Grid container direction='row' >
                     <Grid item xs={12} lg={8}>
                         <Container maxWidth='md' sx={{mb: 5}}>
-                        <Typography variant='h5' align='center' fontWeight='500' color='textPrimary'>Last 5 results</Typography>
+                        <Typography variant='h5' align='center' fontWeight='500' color='textPrimary'>Последние 5 изменений</Typography>
                         <Button 
                         variant='outlined' 
                         size='small'
-                        onClick={handleClickOpen('paper')}>Show all results</Button>
+                        onClick={handleClickOpen('paper')}>Показать все изменения</Button>
                             <Dialog
                                maxWidth='md'
                                minWidth='xs'
@@ -308,7 +304,7 @@ function Profile() {
                                aria-labelledby="scroll-dialog-title"
                                aria-describedby="scroll-dialog-description"
                              >
-                               <DialogTitle id="scroll-dialog-title">Your results for all time</DialogTitle>
+                               <DialogTitle id="scroll-dialog-title">Мои изменения за все время</DialogTitle>
                                <DialogContent dividers={scroll === 'paper'}>
                                  <DialogContentText
                                    tabIndex={-1}
@@ -318,7 +314,7 @@ function Profile() {
                                  </DialogContentText>
                                </DialogContent>
                                <DialogActions>
-                                 <Button onClick={handleClose}>Cancel</Button>
+                                 <Button onClick={handleClose}>Закрыть</Button>
                                </DialogActions>
                              </Dialog>
                         

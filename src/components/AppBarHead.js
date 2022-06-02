@@ -52,14 +52,21 @@ const navigate = useNavigate();
                 }}
                 }
                 >
-              CheckLists
+              Чек-листы
               </Button>
 
               
                 <Button 
                 color="inherit"
                 sx={{fontWeight: 'bold'}}
-                onClick={toProfile}>Profile</Button>
+                onClick={() => {
+                for(let i = 1; i < 2; i++){
+                  if(localStorage.getItem("id") === null){
+                  navigate('/');
+                  alert('Sign in or sign up!');
+                  }else{toProfile()};
+                }}
+                }>Профиль</Button>
 
                 
               

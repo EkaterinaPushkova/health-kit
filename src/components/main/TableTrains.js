@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
+import axios from 'axios';
 import Button from '@mui/material/Button';
 
 export default function TableTrains({rows}) {
@@ -18,12 +18,13 @@ export default function TableTrains({rows}) {
           <TableHead>
             <TableRow>
               <TableCell>id</TableCell>
-              <TableCell align="right">Name</TableCell>
-              <TableCell align="right">Amount of rep-s</TableCell>
-              <TableCell align="right">Amount of sets</TableCell>
-              <TableCell align="right">Purpose</TableCell>
-              <TableCell align="right">Amount in week</TableCell>
-              <TableCell align="right">Day</TableCell>
+              <TableCell align="right">Название</TableCell>
+              <TableCell align="right">Кол-во повторений</TableCell>
+              <TableCell align="right">Кол-во подходов</TableCell>
+              <TableCell align="right">Цель</TableCell>
+              <TableCell align="right">Кол-во занятий</TableCell>
+              <TableCell align="right">День занятия</TableCell>
+              <TableCell align="right">Удаление</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -41,6 +42,25 @@ export default function TableTrains({rows}) {
                 <TableCell align="right">{row.purpose_id}</TableCell>
                 <TableCell align="right">{row.amount_in_week}</TableCell>
                 <TableCell align="right">{row.day}</TableCell>
+                <TableCell align="right">
+                <Button 
+                        variant='contained' 
+                        color='error'
+                        onClick={() => {
+                                axios
+                                    .get(`//localhost:8080/deleteTraining`, {  
+                                    params:{
+                                      id: row.id
+                                    }
+                                    })
+                                    .then((response) => {
+                                    
+                                    });
+                                    
+                                  
+                            }
+                        }>Удалить</Button>
+                </TableCell>
                 
               </TableRow>
             ))}

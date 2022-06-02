@@ -1,11 +1,14 @@
 import { Container, Paper, Grid, Box} from '@mui/material';
-import { Typography, TextField, InputAdornment, Button  } from '@mui/material' ;
+import { Typography, TextField, Select, Button, MenuItem  } from '@mui/material' ;
 import TableTrains from '../components/main/TableTrains';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate} from 'react-router-dom';
 
+
 function AdminPanel() {
+
+
 
     const [trArr, setTrArr] = useState([]);
     const navigate = useNavigate();
@@ -25,7 +28,6 @@ function AdminPanel() {
 
       });
 
-      const [id, setId] = useState('');
       const [name, setName] = useState('');
       const [reps, setReps] = useState('');
       const [sets, setSets] = useState('');
@@ -33,10 +35,7 @@ function AdminPanel() {
       const [week, setWeek] = useState('');
       const [day, setDay] = useState('');
 
-      const handlerIdChange = (e) => {
-        setId(e.target.value)
-    }
-      const handlerNameChange = (e) => {
+    const handlerNameChange = (e) => {
         setName(e.target.value)
     }
     const handlerRepsChange = (e) => {
@@ -58,57 +57,86 @@ function AdminPanel() {
     return(
         <Container maxWidth='xlg'>
             <Paper>
+            <Grid container direction='row' justifyContent='center' alignItems='center'>
+                <Grid item>
                 <Typography align='center' variant='h5' color='textPrimary' fontWeight='500'>Admin panel</Typography>
+                </Grid>
+                <Grid item>
+                    <Button 
+                    variant='contained' 
+                    sx={{ml:'10%', mt: 1 }}
+                    onClick={()=>{
+                        localStorage.clear();
+                        navigate('/');
+                    }}>Выйти</Button>
+                </Grid>
+
+            </Grid>
                 <hr/>
                 <Container 
                 maxWidth='md' 
-                sx={{mb: 3}}>
+                sx={{mb: 1}}>
                 {<TableTrains rows={trArr}/> }
                 </Container>
                 <Box sx={{
-                    '& .MuiTextField-root': {
+                    '& .MuiTextField-root':{
                     width: '9rem',
-                    mb: 3
+                    mb: 1
                     },
                     '& .MuiButton-root':{
-                    mb: 3
+                        mb: 0
+                    },
+                    '& .MuiSelect-root':{
+                    width: '9rem'  
                     }
                 }}
                 >
                 <Grid container spacing={2} direction='row' justifyContent='center'>
                     <Grid item>
                         <TextField
-                            label='name'
+                            size="small"
+                            label='Название'
                             onChange={handlerNameChange}
                         />
                     </Grid>
                     <Grid item>
                         <TextField
-                            label='amount of reps'
+                            size="small"
+                            label='К-во повторений'
                             onChange={handlerRepsChange}
                         />
                     </Grid>
                     <Grid item>
                         <TextField
-                            label='amount of sets'
+                            size="small"
+                            label='К-во подходов'
                             onChange={handlerSetsChange}
                         />
                     </Grid>
                     <Grid item>
-                        <TextField
-                            label='purpose'
+                        <Select
+                            label="Цель"
+                            size="small"
                             onChange={handlerPurposeChange}
-                        />
+                            defaultValue={1}
+                            value={purpose}
+                              >
+                            <MenuItem value={1}>Сброс веса</MenuItem>
+                            <MenuItem value={2}>Набор массы тела</MenuItem>
+                            <MenuItem value={3}>Поддержание здоровья</MenuItem>
+                        </Select>
                     </Grid>
                     <Grid item>
                         <TextField
-                            label='amount in week'
+                        size="small"
+                            label='Кол-во занятий в неделю'
                             onChange={handlerWeekChange}
                         />
                     </Grid>
                     <Grid item>
                         <TextField
-                            label='day'
+                        size="small"
+                            label='День занятия'
                             onChange={handlerDayChange}
                         />
                     </Grid>
@@ -142,42 +170,10 @@ function AdminPanel() {
 
                         }
                             
-                        }>Add</Button>
+                        }>Добавить</Button>
                     </Grid>
                 </Grid>
-                <Grid container spacing={3} justifyContent='center' alignItems='center'>
-                    <Grid item>
-                        <TextField
-                            label='id'
-                            onChange={handlerIdChange}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <Button 
-                        variant='contained' 
-                        color='error'
-                        onClick={() => {
-                                axios
-                                    .get(`//localhost:8080/deleteTraining`, {  
-                                    params:{
-                                      id: id
-                                    }
-                                    })
-                                    .then((response) => {
-                                    
-                                    });
-                                    
-                                    axios
-                                        .get(`//localhost:8080/getFullListOfTrainings`, {  
-
-                                        })
-                                        .then((response) => {
-                                          setTrArr(Object.values(response.data.details));
-                                        });
-                            }
-                        }>Delete</Button>
-                    </Grid>
-                </Grid>
+               
 
                 </Box>
             </Paper>

@@ -1,11 +1,9 @@
 import React from 'react';
 import {Routes, Route} from 'react-router-dom';
 import Purpose from '../components/main/Purpose'
-import CheckLists from '../components/main/CheckLists';
+import CheckLists from '../components/main/purposes/CheckLists';
 
 function Main() {
-
-//серверные движения с условием действия периода чеклиста (если действует -> рендерит один патн, иначе - другой)
 
     return(
         <React.StrictMode>
