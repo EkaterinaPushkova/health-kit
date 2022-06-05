@@ -311,12 +311,13 @@ app.get("/registration", (req, res) => {
 
   
 connection.query(
-    'INSERT INTO users VALUES(null,"'+req.query.name+'", "'+req.query.surname+'", "'+req.query.birthday+'",  "'+req.query.login+'", "'+req.query.password+'", "'+req.query.contr+'");',
- 
+    'INSERT INTO users VALUES(null,"'+req.query.name+'", "'+req.query.surname+'", "'+req.query.birthday+'",  "'+req.query.login+'", "'+req.query.password+'");',
+
   );
-  res.status(200);
+  
 
 });
+
 
 app.get("/addResult", (req, res) => {
 

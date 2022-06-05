@@ -63,7 +63,15 @@ function Auth() {
     <Container maxWidth="sm">
       <Paper elevation={7} sx={{mt: 3}}>
         <Container maxWidth="sm">
-        <Typography variant="h5" align="center" color="textPrimary" fontWeight="500">Авторизация</Typography>
+       
+        <Typography 
+        variant="h5" 
+        align="center" 
+        color="textPrimary" 
+        fontWeight="500"
+        sx={{mb: 2}}>
+        Авторизация</Typography>
+
         <Grid container justifyContent="center" direction='column'>
           <Box sx={{
             '& .MuiTextField-root': {
@@ -71,10 +79,9 @@ function Auth() {
              mb: 2,
             },
             alignItems: 'center',
-            mx: '10%',
-            my: 2
+            mx: '20%'
           }}>
-          <Grid item>
+          <Grid item >
           <TextField
               required
               id="outlined-required"
@@ -100,7 +107,7 @@ function Auth() {
         <Container maxWidth="sm">
           <Box sx={{
             '& .MuiButton-root':{
-              mb: 0
+              mb: 1
             },
             justify: 'center'
           }}>
@@ -132,7 +139,7 @@ function Auth() {
                          navigate('/main/selectPurpose');
               
                         }else if(response.data.ok === false){
-                          alert("bad");
+                          alert("bad (server error)");
                         }
                       })
                       .catch(error => {
@@ -143,7 +150,6 @@ function Auth() {
                   }}>Войти
                 </Button>
               
-                
               </Grid>
 
               <Grid item>
@@ -157,7 +163,7 @@ function Auth() {
             </Grid>
 
               <Container maxWidth='xs' >
-                        <Box sx={{mt: 2, display: 'flex', justifyContent: 'center'}}>
+                        <Box sx={{mt: 1, display: 'flex', justifyContent: 'center'}}>
                           <Button 
                             size='small'
                             onClick={handleClickOpen}>Админ-панель</Button>

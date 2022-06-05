@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import {useNavigate} from 'react-router-dom';
 
 
+
 function AppBarHead(){
 
 const navigate = useNavigate();
@@ -17,12 +18,6 @@ const navigate = useNavigate();
   const toCheckLists = (e) => {
     navigate('/main/checklists')
   }
-
-
-  // useEffect(() => {
-    
-  // });
-
 
   return(
     <Box sx={{ flexGrow: 2 }}>
@@ -45,9 +40,12 @@ const navigate = useNavigate();
               sx={{fontWeight: 'bold'}}
               onClick={() => {
                 for(let i = 1; i < 2; i++){
-                  if(localStorage.getItem("purpose_id") === null){
+                  if(localStorage.getItem("id") === null){
+                  navigate('/');
+                  alert('Войдите или зарегистрируйтесь');
+                  }else if(localStorage.getItem("purpose_id") === null){
                   navigate('/main/selectPurpose/');
-                  alert('Select purpose!');
+                  alert('Выберите цель');;
                   }else{toCheckLists()};
                 }}
                 }
@@ -63,7 +61,7 @@ const navigate = useNavigate();
                 for(let i = 1; i < 2; i++){
                   if(localStorage.getItem("id") === null){
                   navigate('/');
-                  alert('Sign in or sign up!');
+                  alert('Войдите или зарегистрируйтесь');
                   }else{toProfile()};
                 }}
                 }>Профиль</Button>
