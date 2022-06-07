@@ -10,15 +10,16 @@ import axios from 'axios';
 import Button from '@mui/material/Button';
 
 export default function TableTrains({rows}) {
+
+  
     return (
-      <TableContainer sx={{ maxHeight: 400 }} component={Paper}>
+      <TableContainer sx={{ maxHeight: 350 }} component={Paper}>
         <Table 
         stickyHeader 
         aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>id</TableCell>
-              <TableCell align="right">Название</TableCell>
+              <TableCell>Название</TableCell>
               <TableCell align="right">Кол-во повторений</TableCell>
               <TableCell align="right">Кол-во подходов</TableCell>
               <TableCell align="right">Цель</TableCell>
@@ -34,9 +35,8 @@ export default function TableTrains({rows}) {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.id}
+                {row.name}
                 </TableCell>
-                <TableCell align="right">{row.name}</TableCell>
                 <TableCell align="right">{row.amount_of_reps}</TableCell>
                 <TableCell align="right">{row.amount_of_sets}</TableCell>
                 <TableCell align="right">{row.purpose_id}</TableCell>
@@ -47,17 +47,15 @@ export default function TableTrains({rows}) {
                         variant='contained' 
                         color='error'
                         onClick={() => {
-                                axios
-                                    .get(`//localhost:8080/deleteTraining`, {  
+                                axios.get(`//localhost:8080/deleteTraining`, {  
                                     params:{
                                       id: row.id
                                     }
                                     })
                                     .then((response) => {
-                                    
+                                      
                                     });
                                     
-                                  
                             }
                         }>Удалить</Button>
                 </TableCell>

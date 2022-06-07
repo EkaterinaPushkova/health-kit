@@ -139,7 +139,7 @@ function Register() {
                   type="submit" 
                   variant='contained'
                   onClick={() => {
-                    axios
+                    if(name.length > 1 && surname.length > 1 && birthday !== null && login.length > 1 && password.length > 1){axios
                       .get(`//localhost:8080/registration`, {  
                         params:{
                           login: login,
@@ -156,7 +156,9 @@ function Register() {
                           alert("bad");
                         }
                       });
-                      navigate('/');
+                      navigate('/');}else{
+                        alert('Заполните все поля')
+                      }
                   }}>Зарегистрироваться
                 </Button>
               </Grid>

@@ -19,21 +19,22 @@ function AdminPanel() {
             navigate('/')
         }
         axios
-        .get(`//localhost:8080/getFullListOfTrainings`, {  
-
-        })
-        .then((response) => {
-          setTrArr(Object.values(response.data.details));
-        });
-
+                        .get(`//localhost:8080/getFullListOfTrainings`, {  
+                            params:{
+                                purpose: purposeSort,
+                                week: weekSort,
+                                day: daySort
+                              }
+                        })
+                        .then((response) => {
+                          setTrArr(Object.values(response.data.details));
+                        });
       });
 
-      const [name, setName] = useState('');
+      //-----for table
+      const [name, setName] = useState(''); 
       const [reps, setReps] = useState('');
       const [sets, setSets] = useState('');
-      const [purpose, setPurpose] = useState('');
-      const [week, setWeek] = useState('');
-      const [day, setDay] = useState('');
 
     const handlerNameChange = (e) => {
         setName(e.target.value)
@@ -44,22 +45,62 @@ function AdminPanel() {
     const handlerSetsChange = (e) => {
         setSets(e.target.value)
     }
-    const handlerPurposeChange = (e) => {
-        setPurpose(e.target.value)
+    //-----for sort
+    const [purposeSort, setPurposeSort] = useState(1);
+    const [weekSort, setWeekSort] = useState(1);
+    const [daySort, setDaySort] = useState(1);
+
+    const handlePurposeChangeSort = (e) => {
+        setPurposeSort(e.target.value)
+        axios
+                        .get(`//localhost:8080/getFullListOfTrainings`, {  
+                            params:{
+                                purpose: purposeSort,
+                                week: weekSort,
+                                day: daySort
+                              }
+                        })
+                        .then((response) => {
+                          setTrArr(Object.values(response.data.details));
+                        });
     }
-    const handlerWeekChange = (e) => {
-        setWeek(e.target.value)
+    const handleWeekChangeSort = (e) => {
+        setWeekSort(e.target.value)
+        axios
+        .get(`//localhost:8080/getFullListOfTrainings`, {  
+            params:{
+                purpose: purposeSort,
+                week: weekSort,
+                day: daySort
+              }
+        })
+        .then((response) => {
+          setTrArr(Object.values(response.data.details));
+        });
     }
-    const handlerDayChange = (e) => {
-        setDay(e.target.value)
+    const handleDayChangeSort = (e) => {
+        setDaySort(e.target.value)
+        axios
+                        .get(`//localhost:8080/getFullListOfTrainings`, {  
+                            params:{
+                                purpose: purposeSort,
+                                week: weekSort,
+                                day: daySort
+                              }
+                        })
+                        .then((response) => {
+                          setTrArr(Object.values(response.data.details));
+                        });
     }
+
 
     return(
         <Container maxWidth='xlg'>
             <Paper>
             <Grid container direction='row' justifyContent='center' alignItems='center'>
                 <Grid item>
-                <Typography align='center' variant='h5' color='textPrimary' fontWeight='500'>Admin panel</Typography>
+                <Typography align='center' variant='h5' color='textPrimary' fontWeight='500'>Панель администрирования
+                </Typography>
                 </Grid>
                 <Grid item>
                     <Button 
@@ -71,8 +112,54 @@ function AdminPanel() {
                     }}>Выйти</Button>
                 </Grid>
 
+                    
             </Grid>
                 <hr/>
+                <Grid 
+                    container 
+                    spacing={2} 
+                    direction='row' 
+                    justifyContent='center' 
+                    alignItems='center'>
+                        <Grid item>
+                        <Typography>Показать программу по :</Typography>
+                        </Grid>
+                        <Grid item>
+                            <Select
+                                size="small"
+                                onChange={handlePurposeChangeSort}
+                                value={purposeSort}
+                                  >
+                                <MenuItem value={1}>Сброс веса</MenuItem>
+                                <MenuItem value={2}>Набор массы тела</MenuItem>
+                                <MenuItem value={3}>Поддержание здоровья</MenuItem>
+                            </Select>
+                        </Grid>
+                        <Grid item>
+                            <Select
+                                size="small"
+                                onChange={handleWeekChangeSort}
+                                value={weekSort}
+                                  >
+                                <MenuItem value={1}>1</MenuItem>
+                                <MenuItem value={2}>2</MenuItem>
+                                <MenuItem value={3}>3</MenuItem>
+                                <MenuItem value={4}>4</MenuItem>
+                            </Select>
+                        </Grid>
+                        <Grid item>
+                            <Select
+                                size="small"
+                                onChange={handleDayChangeSort}  //---здесь условие с ограничением номера дня по InWeek
+                                value={daySort}
+                                  >
+                                <MenuItem value={1}>1</MenuItem>
+                                <MenuItem value={2}>2</MenuItem>
+                                <MenuItem value={3}>3</MenuItem>
+                                <MenuItem value={4}>4</MenuItem>
+                            </Select>
+                        </Grid>
+                    </Grid>
                 <Container 
                 maxWidth='md' 
                 sx={{mb: 1}}>
@@ -113,33 +200,6 @@ function AdminPanel() {
                             onChange={handlerSetsChange}
                         />
                     </Grid>
-                    <Grid item>
-                        <Select
-                            label="Цель"
-                            size="small"
-                            onChange={handlerPurposeChange}
-                            defaultValue={1}
-                            value={purpose}
-                              >
-                            <MenuItem value={1}>Сброс веса</MenuItem>
-                            <MenuItem value={2}>Набор массы тела</MenuItem>
-                            <MenuItem value={3}>Поддержание здоровья</MenuItem>
-                        </Select>
-                    </Grid>
-                    <Grid item>
-                        <TextField
-                        size="small"
-                            label='Кол-во занятий в неделю'
-                            onChange={handlerWeekChange}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <TextField
-                        size="small"
-                            label='День занятия'
-                            onChange={handlerDayChange}
-                        />
-                    </Grid>
                 </Grid>
                 <Grid container justifyContent='center'>
                     <Grid item>
@@ -152,22 +212,27 @@ function AdminPanel() {
                         name: name,
                         amount_of_reps: reps,
                         amount_of_sets: sets,
-                        purpose_id: purpose,
-                        amount_in_week: week,
-                        day: day
+                        purpose_id: purposeSort,
+                        amount_in_week: weekSort,
+                        day: daySort
                       }
                       })
                       .then((response) => {
                         
                       });
+                      
                       axios
                         .get(`//localhost:8080/getFullListOfTrainings`, {  
-
+                            params:{
+                                purpose: purposeSort,
+                                week: weekSort,
+                                day: daySort
+                              }
                         })
                         .then((response) => {
                           setTrArr(Object.values(response.data.details));
                         });
-
+      
                         }
                             
                         }>Добавить</Button>

@@ -9,8 +9,11 @@ import Paper from '@mui/material/Paper';
 
 export default function ListForProfile({rows}) {
     return (
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <TableContainer sx={{ maxHeight: 400 }}component={Paper}>
+        <Table 
+          stickyHeader
+          sx={{ minWidth: 650 }} 
+          aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>Дата изменения</TableCell>

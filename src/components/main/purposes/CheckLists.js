@@ -120,7 +120,7 @@ function CheckLists() {
                         mt: 1
                       }}>
                              <TextField
-                                size='small'
+                                 size='small'
                                  label='блюдо'
                                  onChange={handleChangeFood}
                              /> 
@@ -133,10 +133,10 @@ function CheckLists() {
                              <Button
                              size='small'
                              onClick={()=>{ 
-                                  setSumCalories(sumCalories+(+calories))
-                                 setFoodArr([...foodArr,{food:food,calories:calories}])
-                                 localStorage.setItem('diet',JSON.stringify(foodArr))
-                                 localStorage.setItem('calories',sumCalories)
+                                  setSumCalories(sumCalories+(+calories));
+                                 setFoodArr([...foodArr,{food:food,calories:calories}]);
+                                 localStorage.setItem('diet',JSON.stringify(foodArr));
+                                 localStorage.setItem('calories',sumCalories);
                                  }}>{sumCalories}</Button>
               
                       </Grid>

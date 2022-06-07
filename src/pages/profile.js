@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Container, Paper, Grid, Box} from '@mui/material';
 import { Typography, TextField, InputAdornment, Button  } from '@mui/material' ;
 import Dialog from '@mui/material/Dialog';
@@ -7,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle'
 import ListForProfile from '../components/main/profile/ListForProfile';
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useRef} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,19 +16,17 @@ function Profile() {
     const navigate = useNavigate();
 
 
-    const [open, setOpen] = React.useState(false);      //for openDialog
-    const [scroll, setScroll] = React.useState('paper');
+    const [open, setOpen] = useState(false);      //for openDialog
 
-    const handleClickOpen = (scrollType) => () => {
+    const handleClickOpen =  () => {
         setOpen(true);
-        setScroll(scrollType);
       };
     
       const handleClose = () => {
         setOpen(false);
       };
-      const descriptionElementRef = React.useRef(null);
-      React.useEffect(() => {
+      const descriptionElementRef = useRef(null);
+      useEffect(() => {
         if (open) {
           const { current: descriptionElement } = descriptionElementRef;
           if (descriptionElement !== null) {
@@ -294,25 +291,22 @@ function Profile() {
                         <Button 
                         variant='outlined' 
                         size='small'
-                        onClick={handleClickOpen('paper')}>Показать все изменения</Button>
+                        onClick={handleClickOpen}>Показать все изменения</Button>
                             <Dialog
                                maxWidth='md'
                                minWidth='xs'
                                open={open}
                                onClose={handleClose}
-                               scroll={scroll}
                                aria-labelledby="scroll-dialog-title"
                                aria-describedby="scroll-dialog-description"
                              >
                                <DialogTitle id="scroll-dialog-title">Мои изменения за все время</DialogTitle>
-                               <DialogContent dividers={scroll === 'paper'}>
                                  <DialogContentText
                                    tabIndex={-1}
                                  >
                                  
                                 {<ListForProfile rows={fullArr}/> } 
                                  </DialogContentText>
-                               </DialogContent>
                                <DialogActions>
                                  <Button onClick={handleClose}>Закрыть</Button>
                                </DialogActions>

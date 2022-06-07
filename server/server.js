@@ -39,7 +39,7 @@ connection.query(
 
 
 
-//----------------запрос на получение последних 10 резултатов 
+//----------------запрос на получение последних 5 резултатов 
 
 app.get( "/getListOfResults" , (req, res) => {
 
@@ -54,7 +54,7 @@ connection.query(
        
       var json = {};
       var key = 'details';
-      json[key] = [];
+      json[key] = []; 
        results.forEach(element => {
          var details={
            "weight":element.weight,
@@ -77,7 +77,7 @@ connection.query(
 
 
 
-//------------запрос на получение резултатов за все время
+//------------запрос на получение изменений за все время
 
 app.get( "/getFullListOfResults" , (req, res) => {
 
@@ -111,8 +111,9 @@ connection.query(
   );
   
 
-});
+}); 
 
+//------------------запрос на получение последних 5 изменений ээээээээээээээээээээээ
 app.get( "/getLastResult" , (req, res) => {
 
 
@@ -143,7 +144,7 @@ connection.query(
 });
 
 
-//----------запрос на получение тренировок по выбранным целям
+//----------запрос на получение тренировок по выбранным целям (для чек-листа)
 app.get( "/getListOfTrainings" , (req, res) => {
 
 
@@ -174,16 +175,16 @@ connection.query(
 
 });
 
-//----------запрос на получение тренировок по выбранным целям
+//----------запрос на получение тренировок по выбранным целям (для панели администрирования)
 app.get( "/getFullListOfTrainings" , (req, res) => {
 
 
   res.setHeader('Access-Control-Allow-Origin', '*');
-
+ 
   
 connection.query(
 
-    'SELECT trainings.id,trainings.name,trainings.amount_of_reps,trainings.amount_of_sets,paths.path_name,trainings.amount_in_week,trainings.day from trainings,paths where trainings.purpose_id = paths.id;',
+    'SELECT trainings.id,trainings.name,trainings.amount_of_reps,trainings.amount_of_sets,paths.path_name,trainings.amount_in_week,trainings.day from trainings,paths where trainings.purpose_id = paths.id and paths.id = '+req.query.purpose+' and trainings.amount_in_week = '+req.query.week+' and trainings.day = '+req.query.day+';',
     function(err, results, fields) {
        
       var json = {};
@@ -191,13 +192,13 @@ connection.query(
       json[key] = [];
        results.forEach(element => {
          var details={
-           "id":element.id,
            "name":element.name,
            "amount_of_reps":element.amount_of_reps,
            "amount_of_sets":element.amount_of_sets,
            "purpose_id":element.path_name,
            "amount_in_week":element.amount_in_week,
-           "day":element.day
+           "day":element.day,
+           "id":element.id
          };
          json[key].push(details);
        });
@@ -318,7 +319,7 @@ connection.query(
 
 });
 
-
+//------------------------запрос для добавления изменения параметров
 app.get("/addResult", (req, res) => {
 
    
@@ -333,6 +334,8 @@ connection.query(
 
 });
 
+
+//-----------------запрос для добавления упражнения в бд в таблицу тренировок
 app.get("/addTraining", (req, res) => {
 
    
@@ -347,6 +350,8 @@ connection.query(
 
 });
 
+
+//------------------------запрос для удаления упражнения из таблицы тренировок
 app.get("/deleteTraining", (req, res) => {
 
    
@@ -356,9 +361,9 @@ app.get("/deleteTraining", (req, res) => {
 connection.query(
     'DELETE from trainings where id = '+req.query.id+';',
  
-  );
+  ); 
   res.status(200);
-
+  
 });
 
 

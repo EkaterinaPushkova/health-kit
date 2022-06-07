@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Box from '@mui/material/Box';
 import { Button,  Paper, TextField, Typography, DialogContent, DialogActions, Dialog, DialogTitle } from '@mui/material';
 import { Container, Grid } from '@mui/material';
@@ -33,7 +32,7 @@ function Auth() {
   }
   
 
-  const [open, setOpen] = React.useState(false); //for openDialog
+  const [open, setOpen] = useState(false); //for openDialog
 
   const handleClickOpen = () => {
       setOpen(true);
@@ -42,8 +41,8 @@ function Auth() {
     const handleClose = () => {
       setOpen(false);
     };
-    const descriptionElementRef = React.useRef(null);
-    React.useEffect(() => {
+    const descriptionElementRef = useRef(null);
+    useEffect(() => {
       if (open) {
         const { current: descriptionElement } = descriptionElementRef;
         if (descriptionElement !== null) {
@@ -125,7 +124,7 @@ function Auth() {
                       .get(`//localhost:8080/authentification`, {
                         params:{
                           login: login,
-                          password: password,
+                          password: password
                         }
                       })
                       .then((response) => {
@@ -185,7 +184,7 @@ function Auth() {
                   onChange={handlerAdminChange}></TextField>
                   </DialogContent>
                   <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleClose}>Закрыть</Button>
                     <Button onClick={() => {
                           if(key === keyAdmin){
                       
