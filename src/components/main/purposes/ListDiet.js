@@ -2,12 +2,6 @@ import { Container, Grid, Checkbox, FormControlLabel, Paper, Button, TextField} 
 import { useState } from 'react';
 
 function ListDiet({newE}) {
-
-   
-
-  
-
-
     return(
         <Container maxWidth='xs'>
         <Paper elevation={3} sx={{mt: 1}}>

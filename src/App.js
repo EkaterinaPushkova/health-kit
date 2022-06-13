@@ -20,11 +20,11 @@ function App() {
       <BrowserRouter>
       <AppBarHead />
       <Routes>
-      <Route exact path='/' element={<Auth/>}/>
-      <Route  path='/registration' element={<Register/>}/>
-      <Route path='/main/*' element={<Main/>}/>
-      <Route path='/profile' element={<Profile/>}/>
-      <Route path='/adminpanel' element={<AdminPanel/>}/>
+        <Route exact path='/' element={<Auth/>}/>
+        <Route  path='/registration' element={<Register/>}/>
+        <Route path='/main/*' element={<Main/>}/>
+        <Route path='/profile' element={<Profile/>}/>
+        <Route path='/adminpanel' element={<AdminPanel/>}/>
       </Routes>
       </BrowserRouter>
       

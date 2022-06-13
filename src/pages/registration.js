@@ -1,4 +1,4 @@
-import { Container, Grid, Paper, Typography, TextField, Box, Button, FormHelperText } from "@mui/material";
+import { Container, Grid, Paper, Typography, TextField, Box, Button } from "@mui/material";
 import axios from 'axios';
 import { Link, useNavigate} from 'react-router-dom'
 import { useState} from 'react';
@@ -57,8 +57,7 @@ function Register() {
                   required
                   id="outlined-helperText"
                   label="Ваше имя"
-                  placeholder="Your name"
-                  helperText={name.length < 1 ? 'Обязательное поле' : ''}
+                  placeholder="Ваше имя"
                   onChange={handleNameChange}
             
                 /> 
@@ -68,8 +67,7 @@ function Register() {
                   required
                   id="outlined"
                   label="Ваша фамилия"
-                  placeholder="Your surname"
-                  helperText={surname.length < 1 ? 'Обязательное поле' : ''}
+                  placeholder="Ваша фамилия"
                   onChange={handleSurnameChange}
             
                 /> 
@@ -102,9 +100,8 @@ function Register() {
                 <TextField
                   required
                   id="outlined-required"
-                  label="Login"
+                  label="Логин"
                   placeholder="login@mail.com"
-                  helperText={login.length < 1 ? 'Обязательное поле' : ''}
                   onChange={handleLoginChange}
                 />
               </Grid>
@@ -112,9 +109,8 @@ function Register() {
                 <TextField
                   required
                   id="outlined-password-input"
-                  label="Password"
+                  label="Пароль"
                   type="password"
-                  helperText={password.length < 1 ? 'Обязательное поле' : ''}
                   onChange={handlePasswordChange}
                 />
               </Grid>

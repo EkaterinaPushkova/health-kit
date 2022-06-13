@@ -84,7 +84,7 @@ function Auth() {
           <TextField
               required
               id="outlined-required"
-              label="Login"
+              label="Логин"
               onChange={handleLoginChange}
             />
           </Grid>
@@ -92,7 +92,7 @@ function Auth() {
           <TextField
               required
               id="outlined-password-input"
-              label="Password"
+              label="Пароль"
               type="password"
               autoComplete="current-password"
               onChange={handlePasswordChange}

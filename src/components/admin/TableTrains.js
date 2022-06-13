@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -13,7 +12,7 @@ export default function TableTrains({rows}) {
 
   
     return (
-      <TableContainer sx={{ maxHeight: 350 }} component={Paper}>
+      <TableContainer sx={{ maxHeight: 360 }} component={Paper}>
         <Table 
         stickyHeader 
         aria-label="simple table">

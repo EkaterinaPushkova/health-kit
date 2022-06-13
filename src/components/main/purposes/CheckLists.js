@@ -1,5 +1,5 @@
 import { Button , TextField} from '@mui/material';
-import { Container, Grid, Box, Paper } from '@mui/material';
+import { Container, Grid, Box, Paper, Typography } from '@mui/material';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import ListTrain from './ListTrain';
@@ -13,9 +13,9 @@ function CheckLists() {
     const navigate = useNavigate();
 
     const [food,setFood] = useState('');
-    const [calories,setCalories] = useState(localStorage.getItem('calories'));
+    const [calories,setCalories] = useState('');
     const [foodArr,setFoodArr] = useState(JSON.parse(localStorage.getItem('diet')));
-    const [sumCalories,setSumCalories] = useState(0);
+    const [sumCalories,setSumCalories] = useState(+localStorage.getItem('calories'));
 
     const handleChangeFood = (event) => {
       setFood(event.target.value);
@@ -83,12 +83,13 @@ function CheckLists() {
                       if(localStorage.getItem('day')<localStorage.getItem('amount_in_week')){ 
                         var day = (parseInt(localStorage.getItem('day'))+1);
                         localStorage.setItem("day", day.toString());
+                        localStorage.setItem('diet',"[]")
+                        setFoodArr([]);
+                        setSumCalories(0);
                       }else{
                         localStorage.setItem('day',1);
                       };
                       setArr([]);
-                      setFoodArr([]);
-                      setSumCalories(0)
                       axios.get(`//localhost:8080/getListOfTrainings`, {  
                                 params:{
                                   id: localStorage.getItem('purpose_id'),
@@ -105,46 +106,65 @@ function CheckLists() {
            <Grid container maxWidth='xs' justifyContent='center' direction='row'>
                 <Grid item>
                   <Paper elevation={5} sx={{pb: 3, pt: 1, m: 2}}>
+                  <Typography sx={{ ml: 3}} variant="body2" justifyContent="start" color="textPrimary" fontWeight="500">Занятие {localStorage.getItem('day')}</Typography>
+                   <hr/>
                     {arr.map(el=><ListTrain item={el}/>) }   
                   </Paper>
                 </Grid>
                 <Grid item>
                 <Container maxWidth='xs'>
-                      <Paper elevation={3} sx={{mt: 1}}>
-                      <Grid container justifyContent="center" direction='row'>
+                <Paper elevation={5} sx={{pb: 3, pt: 1, m: 2}}>
+                      <Grid container justifyContent="start" direction='row'>
                       <Box sx={{
                         '& .MuiTextField-root': {
                         width: '6rem',
                         mb: 2
                         },
-                        mt: 1
+                        mt: 1,
+                        ml: 2
                       }}>
                              <TextField
                                  size='small'
                                  label='блюдо'
+                                 value={food}
                                  onChange={handleChangeFood}
                              /> 
                              <TextField
                                  size='small'
                                  label='калории'
+                                 value={calories}
                                  onChange={handleChangeCalories}
                              /> 
                         </Box>
                              <Button
                              size='small'
                              onClick={()=>{ 
+                               localStorage.setItem('diet',JSON.stringify(foodArr));
+                                 localStorage.setItem('calories',sumCalories);
+
                                   setSumCalories(sumCalories+(+calories));
                                  setFoodArr([...foodArr,{food:food,calories:calories}]);
                                  localStorage.setItem('diet',JSON.stringify(foodArr));
                                  localStorage.setItem('calories',sumCalories);
-                                 }}>{sumCalories}</Button>
-              
+                                 }}>{sumCalories}
+                                 </Button>
+
+                                 <Button 
+                                 size='small'
+                                 color='error'
+                                 onClick={()=>{
+                                   localStorage.setItem('diet',"[]")
+                                    setFoodArr([]);
+                                    setSumCalories(0);
+                                 }}>Очистить
+                                 </Button>
+                                 {foodArr.map(newE =><ListDiets newE={newE}/>) }
                       </Grid>
                       </Paper>
                       </Container>
-                  <Paper elevation={5} sx={{pb: 3, pt: 1, m: 1}}>
-                    {foodArr.map(newE =><ListDiets newE={newE}/>) }   
-                  </Paper>
+                  
+                    
+                  
                 </Grid>
             
             </Grid>

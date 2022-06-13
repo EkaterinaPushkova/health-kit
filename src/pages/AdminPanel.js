@@ -1,6 +1,7 @@
 import { Container, Paper, Grid, Box} from '@mui/material';
 import { Typography, TextField, Select, Button, MenuItem  } from '@mui/material' ;
-import TableTrains from '../components/main/TableTrains';
+import TableTrains from '../components/admin/TableTrains';
+import TableMessages from '../components/admin/TableMessages';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate} from 'react-router-dom';
@@ -11,14 +12,15 @@ function AdminPanel() {
 
 
     const [trArr, setTrArr] = useState([]);
+    const [mesArr, setMesArr] = useState([]);
     const navigate = useNavigate();
 
     
     useEffect(() => {
         if(localStorage.getItem("key") == null){
             navigate('/')
-        }
-        axios
+        }else{
+            axios
                         .get(`//localhost:8080/getFullListOfTrainings`, {  
                             params:{
                                 purpose: purposeSort,
@@ -29,6 +31,17 @@ function AdminPanel() {
                         .then((response) => {
                           setTrArr(Object.values(response.data.details));
                         });
+                        axios
+                        .get(`//localhost:8080/getMessages`, {  
+                            params:{
+                               
+                              }
+                        })
+                        .then((response) => {
+                          setMesArr(Object.values(response.data.details));
+                        });
+        }
+                    
       });
 
       //-----for table
@@ -111,17 +124,27 @@ function AdminPanel() {
                         navigate('/');
                     }}>Выйти</Button>
                 </Grid>
-
-                    
             </Grid>
                 <hr/>
+
+                <Grid 
+                    container 
+                    spacing={1} 
+                    direction='row' 
+                    justifyContent='center' 
+                    alignItems='center'>
+
+                <Grid item lg={8} xs={12}>
+                <Container
+                maxWidth='md'>
+
                 <Grid 
                     container 
                     spacing={2} 
                     direction='row' 
                     justifyContent='center' 
                     alignItems='center'>
-                        <Grid item>
+                        <Grid item >
                         <Typography>Показать программу по :</Typography>
                         </Grid>
                         <Grid item>
@@ -150,7 +173,7 @@ function AdminPanel() {
                         <Grid item>
                             <Select
                                 size="small"
-                                onChange={handleDayChangeSort}  //---здесь условие с ограничением номера дня по InWeek
+                                onChange={handleDayChangeSort} 
                                 value={daySort}
                                   >
                                 <MenuItem value={1}>1</MenuItem>
@@ -160,6 +183,7 @@ function AdminPanel() {
                             </Select>
                         </Grid>
                     </Grid>
+                    </Container>
                 <Container 
                 maxWidth='md' 
                 sx={{mb: 1}}>
@@ -238,11 +262,21 @@ function AdminPanel() {
                         }>Добавить</Button>
                     </Grid>
                 </Grid>
-               
-
                 </Box>
+                </Grid>
+
+                <Grid item lg={4} xs={12}>
+                    <Container 
+                    maxWidth='sm' 
+                    sx={{mb: 6}}>
+                        {<TableMessages rows={mesArr}/> }
+                    </Container>
+                </Grid>
+
+                </Grid>
             </Paper>
         </Container>
+        
     )
 }
 

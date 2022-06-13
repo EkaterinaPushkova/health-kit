@@ -1,6 +1,5 @@
 const express = require( "express" );
 const app = express();
-
 const mysql = require('mysql2');
 
 const connection = mysql.createConnection({
@@ -9,34 +8,6 @@ const connection = mysql.createConnection({
   password : '1234',
   database: 'diplom'
 });
-app.get( "/test" , (req, res) => {
-
-
-  res.setHeader('Access-Control-Allow-Origin', '*');
-
-  
-connection.query(
-
-    'SELECT * from users;',
-    function(err, results, fields) {
-      var json = {};
-      var key = 'details';
-      json[key] = [];
-       results.forEach(element => {
-         var details={
-           "id":element.id,
-           "login":element.login
-         };
-         json[key].push(details);
-       });
-       res.send(json)
-       
-    }
-  );
-  
-
-});
-
 
 
 //----------------запрос на получение последних 5 резултатов 
@@ -113,7 +84,7 @@ connection.query(
 
 }); 
 
-//------------------запрос на получение последних 5 изменений ээээээээээээээээээээээ
+//------------------запрос на получение последних 5 изменений 
 app.get( "/getLastResult" , (req, res) => {
 
 
@@ -175,7 +146,7 @@ connection.query(
 
 });
 
-//----------запрос на получение тренировок по выбранным целям (для панели администрирования)
+//----------запрос на получение тренировок (для панели администрирования)
 app.get( "/getFullListOfTrainings" , (req, res) => {
 
 
@@ -212,38 +183,38 @@ connection.query(
 
 
 //--------------запрос на получение всех вредных привычек
-app.get( "/getBadHabits" , (req, res) => {
+// app.get( "/getBadHabits" , (req, res) => {
 
 
-  res.setHeader('Access-Control-Allow-Origin', '*');
+//   res.setHeader('Access-Control-Allow-Origin', '*');
 
   
-connection.query(
+// connection.query(
 
-    'SELECT * from bad_habits where id_user = '+ req.query.id+';',
-    function(err, results, fields) {
+//     'SELECT * from bad_habits where id_user = '+ req.query.id+';',
+//     function(err, results, fields) {
        
-      var json = {};
-      var key = 'details';
-      json[key] = [];
-       results.forEach(element => {
-         var details={
-           "name":element.name,
-           "status":element.status
-         };
-         json[key].push(details);
-       });
-       res.send(json)
+//       var json = {};
+//       var key = 'details';
+//       json[key] = [];
+//        results.forEach(element => {
+//          var details={
+//            "name":element.name,
+//            "status":element.status
+//          };
+//          json[key].push(details);
+//        });
+//        res.send(json)
       
-    }
-  );
+//     }
+//   );
   
 
-});
+// });
 
 
 //--------------запрос на получение цели
-app.get( "/getPurposes" , (req, res) => {
+app.get( "/getMessages" , (req, res) => {
 
 
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -251,7 +222,7 @@ app.get( "/getPurposes" , (req, res) => {
   
 connection.query(
 
-    'SELECT * from paths ;',
+    'SELECT * from messages ;',
     function(err, results, fields) {
        
       var json = {};
@@ -259,7 +230,10 @@ connection.query(
       json[key] = [];
        results.forEach(element => {
          var details={
-           "name":element.name
+           "id":element.id_user,
+           "subject":element.subject,
+           "object":element.object,
+           "date":element.date_of_message
          };
          json[key].push(details);
        });
@@ -268,7 +242,6 @@ connection.query(
     }
   );
   
-
 });
 
 //---------------------запрос в базу при авторизации
@@ -283,7 +256,7 @@ app.get( "/authentification" , (req, res) => {
         'SELECT * from users where login = "'+req.query.login+'" and password = "'+req.query.password+'";',
         function(err, results, fields) {
            if(results.length>0){
-              console.log("USer присутсвует");
+              console.log("User exist");
               res.status(200).json({
                 ok: true,
                 password:results[0].password,
@@ -365,9 +338,36 @@ connection.query(
   res.status(200);
   
 });
+  
+//------------------------запрос для удаления упражнения из таблицы тренировок
+app.get("/updateProfile", (req, res) => {
 
+   
+  res.setHeader('Access-Control-Allow-Origin', '*');
 
+  
+connection.query(
+    'UPDATE users SET name = "'+req.query.name+'"  , surname = "'+req.query.surname+'" , birthday = "'+req.query.birthday+'" , login = "'+req.query.login+'" , password = "'+req.query.password+'" where id = '+req.query.id+' ;',
+    
+  ); 
+  res.status(200);
+  
+});
 
+//------------------------запрос для удаления упражнения из таблицы тренировок
+app.get("/addMessage", (req, res) => {
+
+   
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
+  
+connection.query(
+    'INSERT INTO  messages VALUES(null, "'+req.query.subject+'", "'+req.query.object+'", CURRENT_DATE(), '+req.query.id+');',
+    
+  ); 
+  res.status(200);
+  
+});
 
 
 const PORT = process.env.PORT || 8080;

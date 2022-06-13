@@ -5,10 +5,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle'
-import ListForProfile from '../components/main/profile/ListForProfile';
 import {useEffect, useState, useRef} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import ListForProfile from '../components/main/profile/ListForProfile';
 
 
 function Profile() {
@@ -16,27 +16,74 @@ function Profile() {
     const navigate = useNavigate();
 
 
-    const [open, setOpen] = useState(false);      //for openDialog
+    const [openRes, setOpenRes] = useState(false);      //------------for openDialogResults
 
-    const handleClickOpen =  () => {
-        setOpen(true);
+    const handleClickOpenResults =  () => {
+        setOpenRes(true);
       };
     
-      const handleClose = () => {
-        setOpen(false);
+      const handleCloseResults = () => {
+        setOpenRes(false);
       };
       const descriptionElementRef = useRef(null);
       useEffect(() => {
-        if (open) {
+        if (openRes) {
           const { current: descriptionElement } = descriptionElementRef;
           if (descriptionElement !== null) {
             descriptionElement.focus();
           }
         }
-      }, [open]);
+      }, [openRes]);
 
 
-    const [bli,setBli] = useState("");
+      const [openProf, setOpenProf] = useState(false);      //---------for openDialogChangeProfile
+
+    const handleOpenChangeProfile =  () => {
+        setOpenProf(true);
+      };
+    
+      const handleCloseChangeProfile = () => {
+        setOpenProf(false);
+      };
+      const descriptionElementRef1 = useRef(null);
+      useEffect(() => {
+        if (openProf) {
+          const { current: descriptionElement } = descriptionElementRef1;
+          if (descriptionElement !== null) {
+            descriptionElement.focus();
+          }
+        }
+      }, [openProf]);
+
+      const [login, setLogin] = useState(localStorage.getItem('login'));
+  const [password, setPassword] = useState(localStorage.getItem('password'));
+  const [passwordTwo, setPasswordTwo] = useState('');
+  const [name, setName] = useState(localStorage.getItem('name'));
+  const [surname, setSurname] = useState(localStorage.getItem('surname'));
+  const [birthday, setBirthday] = useState(localStorage.getItem('birthday').substring(0,10));
+
+  const handleLoginChangeProfile = (e) => {
+    setLogin(e.target.value)
+  }
+  const handlePasswordChangeProfile = (e) => {
+    setPassword(e.target.value)
+  }
+  const handleNameChangeProfile = (e) => {
+    setName(e.target.value)
+  }
+  const handleSurnameChangeProfile = (e) => {
+    setSurname(e.target.value)
+  }
+  const handleBirthdayChangeProfile = (e) => {
+    setBirthday(e.target.value)
+  }
+  const handlePasswordTwoChangeProfile = (e) => {
+    setPasswordTwo(e.target.value)
+  }
+  
+
+
+    const [bli,setBli] = useState("");                  //-----for set results
     const [weight, setWeight] = useState();
     const [height, setHeight] = useState();
     const [chest, setChest] = useState();
@@ -123,9 +170,158 @@ function Profile() {
                     </Typography>
                 </Grid>
                 <Grid item>
+                  <Button
+                    variant='contained' 
+                    color='success'
+                    sx={{mx: 1, mt: 1 }}
+                    onClick={handleOpenChangeProfile}>
+                  Редактировать профиль
+                  </Button>
+
+                          <Dialog
+                               maxWidth='md'
+                               minWidth='xs'
+                               open={openProf}
+                               onClose={handleCloseChangeProfile}
+                               aria-labelledby="scroll-dialog-title"
+                               aria-describedby="scroll-dialog-description"
+                             >
+                               <DialogTitle id="scroll-dialog-title">Редактирование профиля</DialogTitle>
+                                 <DialogContentText
+                                   tabIndex={-1}
+                                 >
+                                 <Container maxWidth="md" lg={2}>          
+
+
+                                          <Grid container spacing={2} justifyContent="center" direction='row'>       
+                                          <Grid item>
+                                              <Grid  justifyContent="center" direction='column'>       
+                                                <Box sx={{
+                                                  '& .MuiTextField-root': {
+                                                   width: '100%',
+                                                   mb: 3,
+                                                  },
+                                                  alignItems: 'center',
+                                                  mt: 2
+                                                }}>
+                                                <Grid item lg={12} xs={12}>
+                                                  <TextField
+                                                    required
+                                                    id="outlined-helperText"
+                                                    label="Ваше имя"
+                                                    placeholder="Ваше имя"
+                                                    onChange={handleNameChangeProfile}
+                                                    value={name}
+                                                  /> 
+                                                </Grid>
+                                                <Grid item lg={12} xs={12}>
+                                                  <TextField
+                                                    required
+                                                    id="outlined"
+                                                    label="Ваша фамилия"
+                                                    placeholder="Ваша фамилия"
+                                                    onChange={handleSurnameChangeProfile}
+                                                    value={surname}
+                                                  /> 
+                                                </Grid>
+
+                                                <Grid item lg={12} xs={12}>
+                                                  <TextField
+                                                    required 
+                                                    type='date'
+                                                    helperText='Дата рождения'
+                                                    min="1950-01-01"
+                                                    max="2018-01-01"
+                                                    onChange={handleBirthdayChangeProfile}
+                                                    value={birthday}
+                                                      />
+                                                </Grid> 
+                                                </Box>
+                                                </Grid>
+                                                </Grid>
+                                                <Grid item>
+                                              <Grid justifyContent="center" direction='column'>  
+                                              <Box sx={{
+                                                  '& .MuiTextField-root': {
+                                                   width: '100%',
+                                                   mb: 3,
+                                                  },
+                                                  alignItems: 'center',
+                                                  mt: 2
+                                                }}>
+                                              <Grid item lg={12} xs={12}>
+                                                  <TextField
+                                                    required
+                                                    id="outlined-required"
+                                                    label="Логин"
+                                                    placeholder="login@mail.com"
+                                                    value={login}
+                                                    onChange={handleLoginChangeProfile}
+                                                  />
+                                                </Grid>
+                                                <Grid item lg={12} xs={12}>
+                                                  <TextField
+                                                    required
+                                                    id="outlined-password-input"
+                                                    label="Пароль"
+                                                    type="password"
+                                                    value={password}
+                                                    onChange={handlePasswordChangeProfile}
+                                                  />
+                                                </Grid>
+                                                <Grid item lg={12} xs={12}>
+                                                  <TextField
+                                                    required
+                                                    id="outlined-password-input"
+                                                    label="Повторите пароль"
+                                                    type="password"
+                                                    onChange={handlePasswordTwoChangeProfile}
+                                                  />
+                                                </Grid>
+                                                </Box>
+                                                </Grid>
+                                              </Grid>
+
+                                              </Grid>
+
+                                      </Container>
+
+                                 </DialogContentText>
+                               <DialogActions>
+                               <Button 
+                                                    type="submit" 
+                                                    variant='contained'
+                                                    onClick={() => {
+                                                      if(password === passwordTwo){
+                                                        axios
+                                                        .get(`//localhost:8080/updateProfile`, {  
+                                                          params:{
+                                                            login: login,
+                                                            password: password,
+                                                            name: name,
+                                                            surname: surname,
+                                                            birthday: birthday,
+                                                            id: localStorage.getItem("id")
+                                                          }
+                                                        })
+                                                        .then((response) => {
+                                                       
+                                                        });
+                                                        alert('Изменения сохранены')
+                                                      }else{
+                                                        alert('пароли не совпадают')
+                                                      }
+                                                    }}
+                                                    >
+                                                    Сохранить изменения
+                                                  </Button>
+                                 <Button onClick={handleCloseChangeProfile}>Закрыть</Button>
+                               </DialogActions>
+                             </Dialog>
+
                     <Button 
                     variant='contained' 
-                    sx={{mx: 3, mt: 1 }}
+                    sx={{mr: 3, mt: 1 }}
                     onClick={()=>{
                         localStorage.clear();
                         navigate('/');
@@ -288,15 +484,19 @@ function Profile() {
                     <Grid item xs={12} lg={8}>
                         <Container maxWidth='md' sx={{mb: 5}}>
                         <Typography variant='h5' align='center' fontWeight='500' color='textPrimary'>Последние 5 изменений</Typography>
+                        
                         <Button 
                         variant='outlined' 
                         size='small'
-                        onClick={handleClickOpen}>Показать все изменения</Button>
+                        onClick={handleClickOpenResults}>
+                        Показать все изменения
+                        </Button>
+
                             <Dialog
                                maxWidth='md'
                                minWidth='xs'
-                               open={open}
-                               onClose={handleClose}
+                               open={openRes}
+                               onClose={handleCloseResults}
                                aria-labelledby="scroll-dialog-title"
                                aria-describedby="scroll-dialog-description"
                              >
@@ -308,7 +508,7 @@ function Profile() {
                                 {<ListForProfile rows={fullArr}/> } 
                                  </DialogContentText>
                                <DialogActions>
-                                 <Button onClick={handleClose}>Закрыть</Button>
+                                 <Button onClick={handleCloseResults}>Закрыть</Button>
                                </DialogActions>
                              </Dialog>
                         
