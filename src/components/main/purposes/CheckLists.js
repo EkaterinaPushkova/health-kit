@@ -37,7 +37,7 @@ function CheckLists() {
 
 
      useEffect(()=>{                  // for get list of trainings for setArr checklist
-      axios.get(`//localhost:8080/getListOfTrainings`, {  
+      axios.get(`//62.113.96.113:8080/getListOfTrainings`, {  
         params:{
           id: localStorage.getItem('purpose_id'),
           amount: localStorage.getItem('amount_in_week'),
@@ -90,7 +90,7 @@ function CheckLists() {
                         localStorage.setItem('day',1);
                       };
                       setArr([]);
-                      axios.get(`//localhost:8080/getListOfTrainings`, {  
+                      axios.get(`//62.113.96.113:8080/getListOfTrainings`, {  
                                 params:{
                                   id: localStorage.getItem('purpose_id'),
                                   amount: localStorage.getItem('amount_in_week'),

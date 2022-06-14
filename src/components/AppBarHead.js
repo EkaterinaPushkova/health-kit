@@ -120,7 +120,7 @@ function AppBarHead(){
                                         <TextField
                                           id="outlined-multiline-static"
                                           multiline
-                                          rows={6}
+                                          rows={8}
                                           label="Сообщение"
                                           placeholder="Сообщение"
                                           onChange={handleMessageChange}
@@ -133,23 +133,28 @@ function AppBarHead(){
                                <DialogActions>
                                <Button 
                                onClick={() => {
-                   axios
-                      .get(`//localhost:8080/addMessage`, {  
-                        params:{
-                          subject: object,
-                          object: message,
-                          id: localStorage.getItem("id")
-                        }
-                      })
-                      .then((response) => {
-                        if (response.status === 200){
-                          alert("good");
-                        }else {
-                          alert("bad");
-                        }
-                      });
-                      
-                  }}>
+                                if(object.length > 1 && message.length > 1){
+                                       axios
+                                          .get(`//62.113.96.113:8080/addMessage`, {  
+                                            params:{
+                                              subject: object,
+                                              object: message,
+                                              id: localStorage.getItem("id")
+                                            }
+                                          })
+                                          .then((response) => {
+                                            if (response.status === 200){
+                                              alert("good");
+                                            }else {
+                                              alert("bad");
+                                            }
+                                          });
+                                          handleCloseMail();
+                                          alert('сообщение отправлено');
+                                        }else{
+                                          alert('введите тему и сообщение');
+                                        }
+                                      }}>
                                Отправить
                                </Button>
                                  <Button 

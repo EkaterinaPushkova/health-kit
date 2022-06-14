@@ -136,7 +136,7 @@ function Register() {
                   variant='contained'
                   onClick={() => {
                     if(name.length > 1 && surname.length > 1 && birthday !== null && login.length > 1 && password.length > 1){axios
-                      .get(`//localhost:8080/registration`, {  
+                      .get(`//62.113.96.113:8080/registration`, {  
                         params:{
                           login: login,
                           password: password,

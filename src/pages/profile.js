@@ -115,7 +115,7 @@ function Profile() {
     const [fullArr, setFullArr] = useState([]);
 
      useEffect(()=>{
-      axios.get(`//localhost:8080/getListOfResults`, {  
+      axios.get(`//62.113.96.113:8080/getListOfResults`, {  
         params:{
           id: localStorage.getItem('id')
         }
@@ -124,7 +124,7 @@ function Profile() {
         setArr(Object.values(response.data.details));
       }); 
 
-      axios.get(`//localhost:8080/getFullListOfResults`, {  
+      axios.get(`//62.113.96.113:8080/getFullListOfResults`, {  
         params:{
           id: localStorage.getItem('id')
         }
@@ -133,24 +133,24 @@ function Profile() {
         setFullArr(Object.values(response.data.details));
       }); 
       
-      axios.get(`//localhost:8080/getLastResult`, {  
+      axios.get(`//62.113.96.113:8080/getLastResult`, {  
         params:{
           id: localStorage.getItem('id')
         }
       })
       .then((response) => {
-          localStorage.setItem("weight",response.data.weight);
-          setWeight(response.data.weight);
-          localStorage.setItem("height",response.data.height);
-          setHeight(response.data.height);
-          localStorage.setItem("chest",response.data.girth_of_chest);
-          setChest(response.data.girth_of_chest);
-          localStorage.setItem("waist",response.data.girth_of_weist);
-          setWaist(response.data.girth_of_weist);
-          localStorage.setItem("hips",response.data.girth_of_hips);
-          setHips(response.data.girth_of_hips);
-          localStorage.setItem("biceps",response.data.girth_of_biceps);
-          setBiceps(response.data.girth_of_biceps);  
+          localStorage.setItem("weight",response.data.details[0].weight);
+          setWeight(response.data.details[0].weight);
+          localStorage.setItem("height",response.data.details[0].height);
+          setHeight(response.data.details[0].height);
+          localStorage.setItem("chest",response.data.details[0].girth_of_chest);
+          setChest(response.data.details[0].girth_of_chest);
+          localStorage.setItem("waist",response.data.details[0].girth_of_weist);
+          setWaist(response.data.details[0].girth_of_weist);
+          localStorage.setItem("hips",response.data.details[0].girth_of_hips);
+          setHips(response.data.details[0].girth_of_hips);
+          localStorage.setItem("biceps",response.data.details[0].girth_of_biceps);
+          setBiceps(response.data.details[0].girth_of_biceps);  
           setBli((localStorage.getItem('weight'))/(Math.pow((localStorage.getItem('height'))/100), 2))       
       }); 
 
@@ -294,7 +294,7 @@ function Profile() {
                                                     onClick={() => {
                                                       if(password === passwordTwo){
                                                         axios
-                                                        .get(`//localhost:8080/updateProfile`, {  
+                                                        .get(`//62.113.96.113:8080/updateProfile`, {  
                                                           params:{
                                                             login: login,
                                                             password: password,
@@ -424,7 +424,7 @@ function Profile() {
                                 color='success' 
                                 onClick={() => {
                                     axios
-                                        .get(`//localhost:8080/addResult`, {  
+                                        .get(`//62.113.96.113:8080/addResult`, {  
                                         params:{
                                           weight: weight,
                                           height: height,
@@ -439,7 +439,7 @@ function Profile() {
                                         
                                         });
 
-                                        axios.get(`//localhost:8080/getListOfResults`, {  
+                                        axios.get(`//62.113.96.113:8080/getListOfResults`, {  
                                           params:{
                                             id: localStorage.getItem('id')
                                           }
@@ -449,7 +449,7 @@ function Profile() {
                                         }); 
 
 
-                                        axios.get(`//localhost:8080/getLastResult`, {  
+                                        axios.get(`//62.113.96.113:8080/getLastResult`, {  
                                           params:{
                                             id: localStorage.getItem('id')
                                           }

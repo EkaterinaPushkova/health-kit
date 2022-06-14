@@ -46,7 +46,7 @@ export default function TableTrains({rows}) {
                         variant='contained' 
                         color='error'
                         onClick={() => {
-                                axios.get(`//localhost:8080/deleteTraining`, {  
+                                axios.get(`//62.113.96.113:8080/deleteTraining`, {  
                                     params:{
                                       id: row.id
                                     }

@@ -121,7 +121,7 @@ function Auth() {
                       navigate('/adminpanel')
                     }else{
                       axios
-                      .get(`//localhost:8080/authentification`, {
+                      .get(`//62.113.96.113:8080/authentification`, {
                         params:{
                           login: login,
                           password: password

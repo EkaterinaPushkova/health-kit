@@ -21,7 +21,7 @@ function AdminPanel() {
             navigate('/')
         }else{
             axios
-                        .get(`//localhost:8080/getFullListOfTrainings`, {  
+                        .get(`//62.113.96.113:8080/getFullListOfTrainings`, {  
                             params:{
                                 purpose: purposeSort,
                                 week: weekSort,
@@ -32,7 +32,7 @@ function AdminPanel() {
                           setTrArr(Object.values(response.data.details));
                         });
                         axios
-                        .get(`//localhost:8080/getMessages`, {  
+                        .get(`//62.113.96.113:8080/getMessages`, {  
                             params:{
                                
                               }
@@ -66,7 +66,7 @@ function AdminPanel() {
     const handlePurposeChangeSort = (e) => {
         setPurposeSort(e.target.value)
         axios
-                        .get(`//localhost:8080/getFullListOfTrainings`, {  
+                        .get(`//62.113.96.113:8080/getFullListOfTrainings`, {  
                             params:{
                                 purpose: purposeSort,
                                 week: weekSort,
@@ -80,7 +80,7 @@ function AdminPanel() {
     const handleWeekChangeSort = (e) => {
         setWeekSort(e.target.value)
         axios
-        .get(`//localhost:8080/getFullListOfTrainings`, {  
+        .get(`//62.113.96.113:8080/getFullListOfTrainings`, {  
             params:{
                 purpose: purposeSort,
                 week: weekSort,
@@ -94,7 +94,7 @@ function AdminPanel() {
     const handleDayChangeSort = (e) => {
         setDaySort(e.target.value)
         axios
-                        .get(`//localhost:8080/getFullListOfTrainings`, {  
+                        .get(`//62.113.96.113:8080/getFullListOfTrainings`, {  
                             params:{
                                 purpose: purposeSort,
                                 week: weekSort,
@@ -231,7 +231,7 @@ function AdminPanel() {
                         variant='contained'
                         onClick={ () => {
                             axios
-                      .get(`//localhost:8080/addTraining`, {  
+                      .get(`//62.113.96.113:8080/addTraining`, {  
                       params:{
                         name: name,
                         amount_of_reps: reps,
@@ -246,7 +246,7 @@ function AdminPanel() {
                       });
                       
                       axios
-                        .get(`//localhost:8080/getFullListOfTrainings`, {  
+                        .get(`//62.113.96.113:8080/getFullListOfTrainings`, {  
                             params:{
                                 purpose: purposeSort,
                                 week: weekSort,
@@ -267,7 +267,7 @@ function AdminPanel() {
 
                 <Grid item lg={4} xs={12}>
                     <Container 
-                    maxWidth='sm' 
+                    maxWidth='xs' 
                     sx={{mb: 6}}>
                         {<TableMessages rows={mesArr}/> }
                     </Container>
