@@ -1,10 +1,15 @@
 ## Graduation project. Client-server SPA for control healthy lifestyle.
 Released authentification page, admin panel where admin can change workout programms.
+
 Released goals selection page where user choose amount days of week workout and purpose of lifestyle.
+
 Released checklists for diets and workout, where user create yourself diet, workout programm created based on user's goals.
+
 Released profile page where user can edit your data and record yourself body-changes (weight, waist etc.)
 
+
 Application has developed based on React.js with МaterialUI library. REST API on Node.js with Express and Axios.
+
 
 # Getting Started with Create React App
 
