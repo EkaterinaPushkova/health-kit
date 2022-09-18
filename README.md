@@ -1,4 +1,4 @@
-##Graduation project. Client-server SPA for control healthy lifestyle.
+## Graduation project. Client-server SPA for control healthy lifestyle.
 Released authentification page, admin panel where admin can change workout programms.
 Released goals selection page where user choose amount days of week workout and purpose of lifestyle.
 Released checklists for diets and workout, where user create yourself diet, workout programm created based on user's goals.
